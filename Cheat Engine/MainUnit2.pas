@@ -32,7 +32,7 @@ const
   strMyCheatTables='My Mod Tables';
   strSpeedHack='Speedmodifier';
 {$else}
-  strCheatEngine='Cheat Engine';
+  strCheatEngine='Sheng Engine';
   strCheatTable='Cheat Table';
   strCheatTableLower='cheat table';
   strCheat='Cheat';
@@ -1282,10 +1282,24 @@ begin
     mainform.Menu:=nil;
 
 end;
-
+function GetRandomStr :string;
+const
+  Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var
+  S: string;
+  i, N: integer;
+begin
+  Randomize;
+  S := '';
+  for i := 1 to 10 do begin
+    N := Random(length(Chars)) + 1;
+    S := S + Chars[N];
+  end;
+  result := S;
+end;
 procedure initcetitle;
 begin
-  CEnorm:=cename+BETA;  //.';
+  CEnorm:= GetRandomStr;  //.';
 
 {$ifdef XDEBUG}
   CEnorm:=CENorm+' Debug Build';
