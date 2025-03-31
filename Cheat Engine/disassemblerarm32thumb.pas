@@ -594,6 +594,7 @@ end;
 
 function bhsd(encoding2: integer): string;
 begin
+  Result := ''; // 显式初始化
   case encoding2 and 3 of
     %00: exit('B');
     %01: exit('H');
@@ -604,6 +605,7 @@ end;
 
 function bhsd2(encoding2: integer): string;
 begin
+  Result := ''; // 显式初始化
   case encoding2 and 3 of
     %01: exit('B');
     %10: exit('H');
@@ -681,6 +683,7 @@ end;
 
 function getShiftTypeString(t: integer): string;
 begin
+  Result := ''; // 显式初始化
   case t and $3 of
     0: exit('LSL');
     1: exit('LSR');
@@ -744,6 +747,7 @@ function thumbExpandImm(v: dword): dword;
 var v2: dword;
   rot: integer;
 begin
+  result := 0; // 显式初始化
   if (v shr 10)=0 then
   begin
     v2:=v and $ff;

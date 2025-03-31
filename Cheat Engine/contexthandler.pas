@@ -377,41 +377,41 @@ const X86_64Context_controlreg: TContextElement_register=(entrytype:0; name:'Con
 {$endif}
 
 const ARM_32Context: array of TContextElement_register=(
-  (entrytype:0; name:'ORIG_R0'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.ORIG_R0); BitStart:0),
-  (entrytype:0; name:'R0'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R0); BitStart:0),
-  (entrytype:0; name:'R1'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R1); BitStart:0),
-  (entrytype:0; name:'R2'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R2); BitStart:0),
-  (entrytype:0; name:'R3'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R3); BitStart:0),
-  (entrytype:0; name:'R4'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R4); BitStart:0),
-  (entrytype:0; name:'R5'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R5); BitStart:0),
-  (entrytype:0; name:'R6'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R6); BitStart:0),
-  (entrytype:0; name:'R7'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R7); BitStart:0),
-  (entrytype:0; name:'R8'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R8); BitStart:0),
-  (entrytype:0; name:'R9'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R9); BitStart:0),
-  (entrytype:0; name:'R10'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.R10); BitStart:0),
-  (entrytype:0; name:'FP'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.FP); BitStart:0),
-  (entrytype:0; name:'IP'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.IP); BitStart:0),
-  (entrytype:0; name:'SP'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.SP); BitStart:0),
-  (entrytype:0; name:'LR'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.LR); BitStart:0),
-  (entrytype:0; name:'PC'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.PC); BitStart:0)
+  (entrytype:0; name:'ORIG_R0'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.ORIG_R0); BitStart:0),
+  (entrytype:0; name:'R0'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R0); BitStart:0),
+  (entrytype:0; name:'R1'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R1); BitStart:0),
+  (entrytype:0; name:'R2'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R2); BitStart:0),
+  (entrytype:0; name:'R3'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R3); BitStart:0),
+  (entrytype:0; name:'R4'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R4); BitStart:0),
+  (entrytype:0; name:'R5'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R5); BitStart:0),
+  (entrytype:0; name:'R6'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R6); BitStart:0),
+  (entrytype:0; name:'R7'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R7); BitStart:0),
+  (entrytype:0; name:'R8'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R8); BitStart:0),
+  (entrytype:0; name:'R9'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R9); BitStart:0),
+  (entrytype:0; name:'R10'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.R10); BitStart:0),
+  (entrytype:0; name:'FP'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.FP); BitStart:0),
+  (entrytype:0; name:'IP'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.IP); BitStart:0),
+  (entrytype:0; name:'SP'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.SP); BitStart:0),
+  (entrytype:0; name:'LR'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.LR); BitStart:0),
+  (entrytype:0; name:'PC'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.PC); BitStart:0)
 );
 
 const ARM_32Context_flags: array of TContextElement_register=(
-  (entrytype:1; name:'N'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 31),
-  (entrytype:1; name:'Z'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 30),
-  (entrytype:1; name:'C'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 29),
-  (entrytype:1; name:'V'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 28),
-  (entrytype:1; name:'Q'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 27),
-//  (entrytype:1; name:'IT'; size:2; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 25),
-  (entrytype:1; name:'J'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 24),
-  (entrytype:1; name:'GE'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 16),
-//  (entrytype:1; name:'IT'; size:6; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 10),
-  (entrytype:1; name:'E'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 9),
-  (entrytype:1; name:'A'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 8),
-  (entrytype:1; name:'I'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 7),
-  (entrytype:1; name:'F'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 6),
-  (entrytype:1; name:'T'; size:1; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 5),
-  (entrytype:1; name:'M'; size:4; displayType: 0; ContextOffset: integer(@PARMCONTEXT(nil)^.CPSR); bitstart: 0)
+  (entrytype:1; name:'N'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 31),
+  (entrytype:1; name:'Z'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 30),
+  (entrytype:1; name:'C'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 29),
+  (entrytype:1; name:'V'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 28),
+  (entrytype:1; name:'Q'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 27),
+//  (entrytype:1; name:'IT'; size:2; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 25),
+  (entrytype:1; name:'J'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 24),
+  (entrytype:1; name:'GE'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 16),
+//  (entrytype:1; name:'IT'; size:6; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 10),
+  (entrytype:1; name:'E'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 9),
+  (entrytype:1; name:'A'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 8),
+  (entrytype:1; name:'I'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 7),
+  (entrytype:1; name:'F'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 6),
+  (entrytype:1; name:'T'; size:1; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 5),
+  (entrytype:1; name:'M'; size:4; displayType: 0; ContextOffset: PtrInt(@PARMCONTEXT(nil)^.CPSR); bitstart: 0)
 );
 
 var ARM_32Context_fpu:  array of TContextElement_register;
@@ -419,22 +419,22 @@ var ARM_32Context_fpu:  array of TContextElement_register;
 // ARM64:
 var ARM_64Context: array of TContextElement_register;
 const ARM_64Context_flags: array of TContextElement_register=(
-  (entrytype:1; name:'N'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 31),
-  (entrytype:1; name:'Z'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 30),
-  (entrytype:1; name:'C'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 29),
-  (entrytype:1; name:'V'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 28),
-  (entrytype:1; name:'SS'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 21),
-  (entrytype:1; name:'IL'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 20),
-  (entrytype:1; name:'D'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 9),
-  (entrytype:1; name:'A'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 8),
-  (entrytype:1; name:'I'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 7),
-  (entrytype:1; name:'F'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 6),
-  (entrytype:1; name:'M32'; size:1; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 4),
-  (entrytype:1; name:'M'; size:4; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 0)
+  (entrytype:1; name:'N'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 31),
+  (entrytype:1; name:'Z'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 30),
+  (entrytype:1; name:'C'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 29),
+  (entrytype:1; name:'V'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 28),
+  (entrytype:1; name:'SS'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 21),
+  (entrytype:1; name:'IL'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 20),
+  (entrytype:1; name:'D'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 9),
+  (entrytype:1; name:'A'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 8),
+  (entrytype:1; name:'I'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 7),
+  (entrytype:1; name:'F'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 6),
+  (entrytype:1; name:'M32'; size:1; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 4),
+  (entrytype:1; name:'M'; size:4; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.PSTATE); bitstart: 0)
 );
 
 {$ifdef darwin}
-const ARM_64Context_controlreg: TContextElement_register=(entrytype:0; name:'ContextFlags'; size:2; displayType: 0; ContextOffset: integer(@PARM64CONTEXT(nil)^.ContextFlags); BitStart:0);
+const ARM_64Context_controlreg: TContextElement_register=(entrytype:0; name:'ContextFlags'; size:2; displayType: 0; ContextOffset: PtrInt(@PARM64CONTEXT(nil)^.ContextFlags); BitStart:0);
 {$endif}
 
 
@@ -909,7 +909,7 @@ begin
   for i:=0 to 31 do
   begin
     e.name:='VFP-D32'+inttostr(i);
-    e.ContextOffset:=integer(@PARMCONTEXT(nil)^.fpu[i]);
+    e.ContextOffset:=PtrInt(@PARMCONTEXT(nil)^.fpu[i]);
     ARM_32Context_fpu[i]:=e;
   end;
   ContextInfo_ARM_32.setFloatingPointRegisters(@ARM_32Context_fpu);
@@ -929,16 +929,16 @@ begin
   for i:=0 to 30 do
   begin
     e.name:='X'+inttostr(i);
-    e.ContextOffset:=integer(@PARM64CONTEXT(nil)^.regs.X[i]);
+    e.ContextOffset:=PtrInt(@PARM64CONTEXT(nil)^.regs.X[i]);
     ARM_64Context[i]:=e;
   end;
 
   e.name:='SP';
-  e.ContextOffset:=integer(@PARM64CONTEXT(nil)^.SP);
+  e.ContextOffset:=PtrInt(@PARM64CONTEXT(nil)^.SP);
   ARM_64Context[31]:=e;
 
   e.name:='PC';
-  e.ContextOffset:=integer(@PARM64CONTEXT(nil)^.PC);
+  e.ContextOffset:=PtrInt(@PARM64CONTEXT(nil)^.PC);
   ARM_64Context[32]:=e;
 
   ContextInfo_ARM_64.setGeneralPurposeRegisters(@ARM_64Context);
@@ -949,7 +949,7 @@ begin
   for i:=0 to 30 do
   begin
     e.name:='V'+inttostr(i);
-    e.ContextOffset:=integer(@PARM64CONTEXT(nil)^.fp.vregs[i]);
+    e.ContextOffset:=PtrInt(@PARM64CONTEXT(nil)^.fp.vregs[i]);
     ARM_64Context_fpu[i]:=e;
   end;
   ContextInfo_ARM_64.setFloatingPointRegisters(@ARM_64Context_fpu);
