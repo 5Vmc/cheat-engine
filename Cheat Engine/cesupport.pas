@@ -9,7 +9,7 @@ uses
   windows, activex, comobj,
   {$endif}
   lclintf, Classes, SysUtils,forms, controls, LMessages,
-  ExtCtrls, Graphics, FileUtil, Dialogs, math;
+  ExtCtrls, Graphics, LazFileUtils, Dialogs, math; 
 
 type TADWindow=class(TCustomForm)
   private
@@ -188,8 +188,6 @@ begin
       begin
        // BringToFront;
         inc(counter);
-
-
 
         url:=getbase+'?cewidth='+inttostr(clientwidth)+'&ceheight='+inttostr(clientheight)+'&fn='+extractfilename(ExtractFileNameWithoutExt(application.ExeName))+'&counter='+inttostr(counter)+getoptionalstring;
         browser.Navigate(url);

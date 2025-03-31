@@ -5,7 +5,7 @@ unit frmSaveSnapshotsUnit;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, FileUtil, LazFileUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, math, LuaCanvas, FPImage, FPCanvas, FPImgCanv, FPReadPNG, FPWritePNG
   {$ifdef laztrunk}
   , LazFileUtils
