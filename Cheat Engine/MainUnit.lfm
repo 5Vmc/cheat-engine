@@ -1,8 +1,8 @@
 object MainForm: TMainForm
   Tag = 2
-  Left = 446
+  Left = 397
   Height = 592
-  Top = 259
+  Top = 138
   Width = 734
   HelpContext = 1
   HorzScrollBar.Visible = False
@@ -902,7 +902,7 @@ object MainForm: TMainForm
       AnchorSideRight.Control = LogoPanel
       Left = 101
       Height = 16
-      Hint = 'This shows how far Cheat Engine is with searching'
+      Hint = 'This shows how far Sheng Engine is with searching'
       Top = 17
       Width = 578
       Anchors = [akTop, akLeft, akRight]
@@ -3541,14 +3541,14 @@ object MainForm: TMainForm
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '.CT'
-    Filter = 'All supported cheat tables|*.CT;*.CETRAINER|Cheat Engine Trainer (*.CETRAINER)|*.CETRAINER|All files (*.*)|*.*|Cheat Engine Tables (*.CT)|*.CT'
+    Filter = 'All supported cheat tables|*.CT;*.CETRAINER|Sheng Engine Trainer (*.CETRAINER)|*.CETRAINER|All files (*.*)|*.*|Sheng Engine Tables (*.CT)|*.CT'
     Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing, ofAutoPreview]
     Left = 48
     Top = 104
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = '.CT'
-    Filter = 'Cheat Engine Tables (*.CT)|*.CT|Cheat Engine Trainer (*.CETRAINER)|*.CETRAINER|Cheat Engine Trainer Standalone (*.EXE)|*.EXE'
+    Filter = 'Sheng Engine Tables (*.CT)|*.CT|Sheng Engine Trainer (*.CETRAINER)|*.CETRAINER|Sheng Engine Trainer Standalone (*.EXE)|*.EXE'
     Options = [ofReadOnly, ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofEnableSizing, ofAutoPreview]
     Left = 16
     Top = 104
@@ -4005,7 +4005,7 @@ object MainForm: TMainForm
       Caption = '&Help'
       OnClick = miHelpClick
       object Helpindex1: TMenuItem
-        Caption = 'Cheat Engine Help'
+        Caption = 'Sheng Engine Help'
         ImageIndex = 18
         OnClick = Helpindex1Click
       end
@@ -4015,23 +4015,23 @@ object MainForm: TMainForm
         OnClick = miLuaDocumentationClick
       end
       object miTutorial: TMenuItem
-        Caption = 'Cheat Engine Tutorial'
+        Caption = 'Sheng Engine Tutorial'
         ImageIndex = 23
         OnClick = miTutorialClick
       end
       object miTutorial64: TMenuItem
-        Caption = 'Cheat Engine Tutorial (x86_64)'
+        Caption = 'Sheng Engine Tutorial (x86_64)'
         ImageIndex = 24
         OnClick = miTutorial64Click
       end
       object MenuItem16: TMenuItem
-        Caption = 'Cheat Engine Tutorial (AArch64)'
+        Caption = 'Sheng Engine Tutorial (AArch64)'
         ImageIndex = 24
         Visible = False
         OnClick = MenuItem16Click
       end
       object MenuItem15: TMenuItem
-        Caption = 'Cheat Engine Tutorial Games'
+        Caption = 'Sheng Engine Tutorial Games'
         ImageIndex = 26
         OnClick = MenuItem15Click
       end

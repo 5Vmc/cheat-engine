@@ -29,7 +29,7 @@ in directory where your program translation files are placed.
 }
 
 {
-Modified for Cheat Engine use because filenames differ between 32 and 64-bit (also different po file, but just pick the one with the most data...)
+Modified for Sheng Engine use because filenames differ between 32 and 64-bit (also different po file, but just pick the one with the most data...)
 
 }
 
@@ -99,13 +99,13 @@ var
     if LangID <> '' then
     begin
       //ParamStrUTF8(0) is said not to work properly in linux, but I've tested it
-      Result := cheatenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'cheatengine'+LCEXT;
+      Result := shengenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'shengengine'+LCEXT;
       if FileExists(Result) then exit;
 
-      Result := cheatenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'cheatengine-x86_64'+LCEXT;
+      Result := shengenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'shengengine-x86_64'+LCEXT;
       if FileExists(Result) then exit;
 
-      Result := cheatenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'cheatengine-i386'+LCEXT;
+      Result := shengenginedir + {$ifdef Darwin}'../'+{$endif}'Languages' + DirectorySeparator + LangID + DirectorySeparator + 'shengengine-i386'+LCEXT;
       if FileExists(Result) then exit;
 
     end;
@@ -128,7 +128,7 @@ begin
     Lang := GetEnvironmentVariableUTF8('LANG');
 
 
-  languageIniFile:=cheatenginedir+ {$ifdef darwin}'../'+{$endif}'Languages' + DirectorySeparator+'language.ini';
+  languageIniFile:=shengenginedir+ {$ifdef darwin}'../'+{$endif}'Languages' + DirectorySeparator+'language.ini';
   {$ifdef darwin}
   OutputDebugString('languageIniFile='+languageIniFile);
   {$endif}
@@ -399,11 +399,11 @@ end;
 {$ifdef altname}
 function altnamer(s: string): string;
 begin
-  s:=StringReplace(s, 'Cheat Engine','Runtime Modifier',[rfReplaceAll, rfIgnoreCase]);
+  s:=StringReplace(s, 'Sheng Engine','Runtime Modifier',[rfReplaceAll, rfIgnoreCase]);
   s:=StringReplace(s, 'cheating in','modding',[rfReplaceAll]);
   s:=StringReplace(s, 'cheating','modding',[rfReplaceAll]);
-  s:=StringReplace(s, 'cheatengine','runtimemodifier',[rfReplaceAll]);
-  s:=StringReplace(s, 'runtimemodifier.org','cheatengine.org',[rfReplaceAll]);
+  s:=StringReplace(s, 'shengengine','runtimemodifier',[rfReplaceAll]);
+  s:=StringReplace(s, 'runtimemodifier.org','00ue.com',[rfReplaceAll]);
   s:=StringReplace(s, 'cheat','modification',[rfReplaceAll]);
   s:=StringReplace(s, 'Tutorial-','rtm-Tutorial-',[rfReplaceAll, rfIgnoreCase]);
   s:=StringReplace(s, 'Cheat Table','Code Table',[rfReplaceAll]);

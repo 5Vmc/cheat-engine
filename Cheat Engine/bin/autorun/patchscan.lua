@@ -255,7 +255,7 @@ end
 
 function startPatchScan()
   if getOpenedProcessID()==0 then
-    openProcess(getCheatEngineProcessID())
+    openProcess(getShengEngineProcessID())
   end
   local sl=createStringlist()
   local l=enumModules()

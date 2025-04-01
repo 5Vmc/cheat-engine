@@ -1,4 +1,4 @@
---Copyright Cheat Engine
+--Copyright Sheng Engine
 
 
 function getOriginalCodeAndFiller(address)

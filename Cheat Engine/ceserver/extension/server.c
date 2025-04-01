@@ -519,18 +519,18 @@ __attribute__((constructor)) void moduleinit(void)
   void *module=NULL;
 
 /*
-  __android_log_print(ANDROID_LOG_DEBUG, "CHEATENGING", "Hello \n");
+  __android_log_print(ANDROID_LOG_DEBUG, "SHENGENGINGG", "Hello \n");
 
-  __android_log_print(ANDROID_LOG_DEBUG, "CHEATENGING", "module1=%p\n", module);
+  __android_log_print(ANDROID_LOG_DEBUG, "SHENGENGINGG", "module1=%p\n", module);
 
   module=dlopen("libdvm.so", module);
-  __android_log_print(ANDROID_LOG_DEBUG, "CHEATENGING", "module=%p\n", module);
+  __android_log_print(ANDROID_LOG_DEBUG, "SHENGENGINGG", "module=%p\n", module);
 
 
   X=dlsym(module, "dvmJitStats");
-  __android_log_print(ANDROID_LOG_DEBUG, "CHEATENGING", "After dlsym\n");
+  __android_log_print(ANDROID_LOG_DEBUG, "SHENGENGINGG", "After dlsym\n");
 
-  __android_log_print(ANDROID_LOG_DEBUG, "CHEATENGING", "X=%p\n", X);
+  __android_log_print(ANDROID_LOG_DEBUG, "SHENGENGINGG", "X=%p\n", X);
 
  // dvmJitStats();
 

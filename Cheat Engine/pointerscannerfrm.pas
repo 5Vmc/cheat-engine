@@ -2022,7 +2022,7 @@ begin
   SaveFormPosition(self);
 
   reg:=tregistry.create;
-  if reg.OpenKey('\Software\'+strCheatEngine+'\Pointerscan', true) then
+  if reg.OpenKey('\Software\'+strShengEngine+'\Pointerscan', true) then
   begin
     reg.writeInteger('Display Type', cbtype.itemindex);
     reg.writeBool('Display Signed',miSigned.checked);
@@ -3669,7 +3669,7 @@ begin
 
   reg:=TRegistry.Create;
 
-  if reg.OpenKey('\Software\'+strCheatEngine+'\Pointerscan', false) then
+  if reg.OpenKey('\Software\'+strShengEngine+'\Pointerscan', false) then
   begin
     if reg.ValueExists('Display Type') then
       cbtype.itemindex:=reg.ReadInteger('Display Type');

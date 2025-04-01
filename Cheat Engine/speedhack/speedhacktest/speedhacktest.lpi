@@ -11,7 +11,7 @@
       <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True/PM_V2"/>
-        <TextName Value="CheatEngine.Speedhack.tester"/>
+        <TextName Value="ShengEngine.Speedhack.tester"/>
         <TextDesc Value="Something to test ce&apos;s speedhack on"/>
       </XPManifest>
     </General>

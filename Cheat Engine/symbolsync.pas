@@ -296,7 +296,7 @@ begin
   else
     usedtempdir:=GetTempDir;
 
-  symbolpath:=usedtempdir+strCheatEngine+' Symbols'+pathdelim;
+  symbolpath:=usedtempdir+strShengEngine+' Symbols'+pathdelim;
   ForceDirectory(symbolpath);
 
   trycount:=0;

@@ -3159,7 +3159,7 @@ begin
 
   reg:=TRegistry.Create;
   try
-    if Reg.OpenKey('\Software\'+strCheatEngine,false) then
+    if Reg.OpenKey('\Software\'+strShengEngine,false) then
     begin
       Reg.WriteString('Ultimap2 Folder', deTargetFolder.Directory);
       Reg.WriteBool('Ultimap2 Keep Trace Files', cbDontDeleteTraceFiles.checked);
@@ -3308,7 +3308,7 @@ begin
 
   reg:=TRegistry.Create;
   try
-    if Reg.OpenKey('\Software\'+strCheatEngine,false) then
+    if Reg.OpenKey('\Software\'+strShengEngine,false) then
     begin
       if Reg.ValueExists('Ultimap2 Folder') then
         deTargetFolder.Directory:=Reg.ReadString('Ultimap2 Folder');

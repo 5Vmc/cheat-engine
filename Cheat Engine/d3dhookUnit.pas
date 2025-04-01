@@ -74,7 +74,7 @@ type
 
 
   TD3DHookShared=packed record
-    cheatenginedir: array [0..255] of char;
+    shengenginedir: array [0..255] of char;
     snapshotdir: array [0..255] of char;
     dxgi_present: UINT64;
     dxgi_resizebuffers: UINT64;
@@ -1623,7 +1623,7 @@ begin
   begin
     ZeroMemory(shared, sizeof(TD3DHookShared));
     shared.texturelist:=sizeof(TD3DHookShared)+(maxsize div 2);
-    shared.cheatenginedir:=CheatEngineDir;
+    shared.shengenginedir:=ShengEngineDir;
     shared.useCommandListLock:=1;
   end;
 
@@ -1684,9 +1684,9 @@ begin
       symhandler.reinitialize;
       symhandler.waitforsymbolsloaded(true, 'kernel32.dll');
       if processhandler.is64Bit then
-        injectdll(cheatenginedir+'d3dhook64.dll')
+        injectdll(shengenginedir+'d3dhook64.dll')
       else
-        injectdll(cheatenginedir+'d3dhook.dll');
+        injectdll(shengenginedir+'d3dhook.dll');
 
       //wait till the injection is done
       WaitForSingleObject(h, INFINITE);

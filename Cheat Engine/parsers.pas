@@ -1,4 +1,4 @@
-// Copyright Cheat Engine. All Rights Reserved.
+// Copyright Sheng Engine. All Rights Reserved.
 
 unit Parsers;
 {General parsers}

@@ -751,7 +751,7 @@ begin
 
   reg:=Tregistry.Create;
   try
-    if reg.OpenKey('\Software\'+strCheatEngine+'\TracerTree '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\TracerTree '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
       LoadFontFromRegistry(lvtracer.Font, reg);
   except
   end;
@@ -1034,7 +1034,7 @@ begin
 
     reg:=Tregistry.Create;
     try
-      if reg.OpenKey('\Software\'+strCheatEngine+'\TracerTree '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
+      if reg.OpenKey('\Software\'+strShengEngine+'\TracerTree '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
         SaveFontToRegistry(lvTracer.Font, reg);
     except
     end;
@@ -1536,7 +1536,7 @@ begin
 
       //todo: save/load the contextinfo from the stream
       if version<>{$ifdef cpu64}1{$else}0{$endif} then
-        raise exception.create('This trace was made with the '+{$ifdef cpu64}'32'{$else}'64'{$endif}+'-bit version of '+strCheatEngine+'. You need to use that version to see the register values and stacktrace');
+        raise exception.create('This trace was made with the '+{$ifdef cpu64}'32'{$else}'64'{$endif}+'-bit version of '+strShengEngine+'. You need to use that version to see the register values and stacktrace');
 
       ch:=getBestContextHandler;
       for i:=0 to comparetv.Items.Count-1 do
@@ -1595,7 +1595,7 @@ begin
 
       //todo: save/load the contextinfo from the stream
       if version<>{$ifdef cpu64}1{$else}0{$endif} then
-        raise exception.create('This trace was made with the '+{$ifdef cpu64}'32'{$else}'64'{$endif}+'-bit version of '+strCheatEngine+'. You need to use that version to see the register values and stacktrace');
+        raise exception.create('This trace was made with the '+{$ifdef cpu64}'32'{$else}'64'{$endif}+'-bit version of '+strShengEngine+'. You need to use that version to see the register values and stacktrace');
 
       dereference:=false;
       ch:=getBestContextHandler;

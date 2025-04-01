@@ -156,7 +156,7 @@ type
   TBooleanArray = Array of Boolean;
 
 {
-The TDisassemblyLine originates from jgoemat  ( http://forum.cheatengine.org/viewtopic.php?t=566415 )
+The TDisassemblyLine originates from jgoemat  ( http://www.00ue.com/53.html )
 Originally it was just an Object but I changed it to a TObject because I think a
 standalone TDisassembler object might be more efficient reducing the amount of
 string parsing
@@ -422,8 +422,8 @@ resourcestring
   rsLUAScript = 'LUA Script';
   rsGNUAScript = 'GNU Assembler Script';
   rsWriteCode = 'Write code';
-  rsCEAFilter = strCheatEngine+' Assembly (*.CEA)|*.CEA|All Files ( *.* )|*.*';
-  rsCEGAFilter = strCheatEngine+' GNU Assembly (*.CEGA)|*.CEGA|All Files ( *.* )|*.*';
+  rsCEAFilter = strShengEngine+' Assembly (*.CEA)|*.CEA|All Files ( *.* )|*.*';
+  rsCEGAFilter = strShengEngine+' GNU Assembly (*.CEGA)|*.CEGA|All Files ( *.* )|*.*';
   rsAutoAssembler = 'Auto assembler';
   rsCodeNeedsEnableAndDisable = 'The code needs an [ENABLE] and a [DISABLE] section if you want to use this script as a table entry';
   rsNotAllCodeIsInjectable = 'Not all code is injectable.'#13#10'%s'#13#10'Are you sure you want to edit it to this?';
@@ -2112,7 +2112,7 @@ begin
 
     reg:=tregistry.create;
     try
-      if reg.OpenKey('\Software\'+strCheatEngine+'\Auto Assembler\',false) then
+      if reg.OpenKey('\Software\'+strShengEngine+'\Auto Assembler\',false) then
       begin
         if reg.valueexists('Font.name') then
           assemblescreen.Font.Name:=reg.readstring('Font.name');
@@ -2796,7 +2796,7 @@ begin
 
   reg:=tregistry.create;
   try
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Auto Assembler\',false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Auto Assembler\',false) then
     begin
       if reg.valueexists('Show Line Numbers') then
         assemblescreen.Gutter.linenumberpart.visible:=reg.ReadBool('Show Line Numbers');
@@ -2973,7 +2973,7 @@ begin
       add('envname:');
       add('db ''UC_HOME'',0');
       add('envvar:');
-      add('db '''+cheatenginedir+''' ,0');
+      add('db '''+shengenginedir+''' ,0');
       add('myscript:');
       add('push envvar');
       add('push envname');
@@ -3009,7 +3009,7 @@ begin
     setenvscript.free;
 
 
-    injectdll(cheatenginedir+'undercdll.dll','');
+    injectdll(shengenginedir+'undercdll.dll','');
     symhandler.reinitialize;
     hasjustloadedundercdll:=true;
   end else hasjustloadedundercdll:=false;
@@ -3145,7 +3145,7 @@ begin
         //save these settings
         reg:=tregistry.create;
         try
-          if reg.OpenKey('\Software\'+strCheatEngine+'\Auto Assembler\',true) then
+          if reg.OpenKey('\Software\'+strShengEngine+'\Auto Assembler\',true) then
           begin
             reg.WriteString('Font.name', assemblescreen.Font.Name);
             reg.WriteInteger('Font.size', assemblescreen.Font.size);
@@ -3399,7 +3399,7 @@ begin
   ReadProcessMemory(processhandle, pointer(a), @originalbytes[0], codesize, br);
 
 
-  // same as menu option "Cheat Engine framework code", make sure we
+  // same as menu option "Sheng Engine framework code", make sure we
   // have enable and disable
   getenableanddisablepos(script,enablepos,disablepos);
 
@@ -3571,9 +3571,9 @@ end;
 
 procedure TfrmAutoInject.reloadHighlighterSettings;
 begin
-  LuaHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\Lua Highlighter'+darkmodestring);
-  AAHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\AA Highlighter'+darkmodestring);
-  CPPHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\CPP Highlighter'+darkmodestring);
+  LuaHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\Lua Highlighter'+darkmodestring);
+  AAHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\AA Highlighter'+darkmodestring);
+  CPPHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\CPP Highlighter'+darkmodestring);
 end;
 
 procedure TfrmAutoInject.MenuItem2Click(Sender: TObject);
@@ -3581,11 +3581,11 @@ var
   frmHighlighterEditor: TfrmHighlighterEditor;
 begin
   frmHighlighterEditor:=TfrmHighlighterEditor.create(self);
-  LuaHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\Lua Highlighter'+darkmodestring);
+  LuaHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\Lua Highlighter'+darkmodestring);
   frmHighlighterEditor.highlighter:=LuaHighlighter;
   if frmHighlighterEditor.showmodal=mrok then
   begin
-    LuaHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\Lua Highlighter'+darkmodestring);
+    LuaHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\Lua Highlighter'+darkmodestring);
     reloadHighlighterSettings;
     ReloadAllLuaEngineHighlighters;
   end;
@@ -3599,11 +3599,11 @@ var
   frmHighlighterEditor: TfrmHighlighterEditor;
 begin
   frmHighlighterEditor:=TfrmHighlighterEditor.create(self);
-  AAHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\AA Highlighter'+darkmodestring);
+  AAHighlighter.LoadFromRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\AA Highlighter'+darkmodestring);
   frmHighlighterEditor.highlighter:=AAHighlighter;
   if frmHighlighterEditor.showmodal=mrok then
   begin
-    AAHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\AA Highlighter'+darkmodestring);
+    AAHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\AA Highlighter'+darkmodestring);
     ReloadAllAutoInjectHighlighters;
   end;
 
@@ -3615,12 +3615,12 @@ var
   frmHighlighterEditor: TfrmHighlighterEditor;
 begin
   frmHighlighterEditor:=TfrmHighlighterEditor.create(self);
-  CPPHighlighter.loadFromRegistryDefault(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\CPP Highlighter'+darkmodestring);
+  CPPHighlighter.loadFromRegistryDefault(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\CPP Highlighter'+darkmodestring);
 
   frmHighlighterEditor.highlighter:=CPPHighlighter;
   if frmHighlighterEditor.showmodal=mrok then
   begin
-    CPPHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strCheatEngine+'\CPP Highlighter'+darkmodestring);
+    CPPHighlighter.SaveToRegistry(HKEY_CURRENT_USER, '\Software\'+strShengEngine+'\CPP Highlighter'+darkmodestring);
     ReloadAllAutoInjectHighlighters;
   end;
 
@@ -3726,7 +3726,7 @@ begin
   setlength(originalbytes, codesize);
   ReadProcessMemory(processhandle, pointer(a), @originalbytes[0], codesize, br);
 
-  // same as menu option "Cheat Engine framework code", make sure we
+  // same as menu option "Sheng Engine framework code", make sure we
   // have enable and disable
   getenableanddisablepos(script,enablepos,disablepos);
 

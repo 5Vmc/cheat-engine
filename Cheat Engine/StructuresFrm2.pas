@@ -722,7 +722,7 @@ resourcestring
    rsStructureDefine = 'Structure define';
    rsStructAlreadyExists = 'This is detected as structure named %s which already exists. Define a new version of this structure? (Click no to go to the existing one)';
    rsGiveTheNameForThisStructure = 'Give the name for this structure';
-   rsDoYouWantCheatEngineToTryAndFillInTheMostBasicType = 'Do you want Cheat '
+   rsDoYouWantShengEngineToTryAndFillInTheMostBasicType = 'Do you want Cheat '
      +'Engine to try and fill in the most basic types of the struct using the '
      +'current address?';
    rsPleaseGiveAStartingSizeOfTheStructYouCanChangeThis = 'Please give a '
@@ -739,7 +739,7 @@ resourcestring
    rsAreYouSureYouWantToDelete = 'Are you sure you want to delete %s?';
    rsThisIsNotAValidStructureFile = 'This is not a valid structure file';
    rsWrongVersion = 'This structure file was generated with a newer version of '
-     +strCheatEngine+'. (That means there''s more than likely a new version so '
+     +strShengEngine+'. (That means there''s more than likely a new version so '
      +'please update....)';
    rsUnkownFileExtension = 'Unknown file extension';
    rsAreYouSureYouWantToRemoveAllStructures = 'Are you sure you want to remove '
@@ -2038,7 +2038,7 @@ begin
     reg:=tregistry.create;
     try
      Reg.RootKey := HKEY_CURRENT_USER;
-     if Reg.OpenKey('\Software\'+strCheatEngine+'\DissectData',true) then
+     if Reg.OpenKey('\Software\'+strShengEngine+'\DissectData',true) then
      begin
        if reg.ValueExists('Autoguess Custom Types') then
          useCustomTypes:=reg.readBool('Autoguess Custom Types');
@@ -2478,7 +2478,7 @@ begin
   reg:=tregistry.create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKey('\Software\'+strCheatEngine+'\DissectData',false) then
+    if Reg.OpenKey('\Software\'+strShengEngine+'\DissectData',false) then
     begin
       if reg.ValueExists('Autocreate') then fAutoCreate:=reg.ReadBool('Autocreate');
       if reg.ValueExists('Autocreate Size') then fAutoCreateStructsize:=reg.ReadInteger('Autocreate Size');
@@ -4848,7 +4848,7 @@ begin
 
 
     //ask if it should be filled in automatically
-    autoFillIn:=messagedlg(rsDoYouWantCheatEngineToTryAndFillInTheMostBasicType, mtconfirmation, [mbyes, mbno, mbcancel], 0);
+    autoFillIn:=messagedlg(rsDoYouWantShengEngineToTryAndFillInTheMostBasicType, mtconfirmation, [mbyes, mbno, mbcancel], 0);
     if autoFillIn=mrcancel then exit;
 
     mainStruct:=nil;

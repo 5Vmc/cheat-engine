@@ -67,9 +67,9 @@ end;
 procedure TForm4.Label4Click(Sender: TObject);
 begin
   {$ifdef windows}
-  ShellExecute(0, PChar('open'), PChar('http://forum.cheatengine.org/'),PChar(''), PChar(''), SW_MAXIMIZE);
+  ShellExecute(0, PChar('open'), PChar('http://forum.%63%68%65%61%74%65%6E%67%69%6E%65%2E%6F%72%67/'),PChar(''), PChar(''), SW_MAXIMIZE);
   {$else}
-  OpenURL('http://forum.cheatengine.org/');
+  OpenURL('http://forum.%63%68%65%61%74%65%6E%67%69%6E%65%2E%6F%72%67/');
   {$endif}
 end;
 

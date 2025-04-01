@@ -735,7 +735,7 @@ type
       Shift: TShiftState; X, Y: integer);
     procedure Findoutwhataccessesthisaddress1Click(Sender: TObject);
     procedure OpenProcesslist1Click(Sender: TObject);
-    procedure CloseCheatEngine1Click(Sender: TObject);
+    procedure CloseShengEngine1Click(Sender: TObject);
     procedure Showashexadecimal1Click(Sender: TObject);
     procedure OpenMemorybrowser1Click(Sender: TObject);
     procedure cbPauseWhileScanningClick(Sender: TObject);
@@ -1177,7 +1177,7 @@ resourcestring
   rsSaveScanResults = 'Save scan results';
   rsWhatNameDoYouWantToGiveToTheseScanresults =
     'What name do you want to give to these scanresults?';
-  strClickToGoHome = 'Click here to go to the '+strCheatEngine+' homepage';
+  strClickToGoHome = 'Click here to go to the '+strShengEngine+' homepage';
   rsLuaScriptCheatTable = 'Lua script: '+strCheatTable;
   strChangeDescription1 = 'Description';
   strChangeDescription2 = 'Change the description to:';
@@ -1210,8 +1210,8 @@ resourcestring
     'Select the saved scan result to delete from the list below';
   rsComparingTo = 'Comparing to %s';
   rsHex = 'Hex';
-  rsDoYouWantToGoToTheCheatEngineWebsite =
-    'Do you want to go to the '+strCheatEngine+' website?';
+  rsDoYouWantToGoToTheShengEngineWebsite =
+    'Do you want to go to the '+strShengEngine+' website?';
 
   strdeleteall = 'Are you sure you want to delete all addresses?';
   stralreadyin = 'This address is already in the list';
@@ -1258,15 +1258,15 @@ resourcestring
   strHideAll = 'will hide all windows';
   strUnHideForeground = 'will bring the foreground window back';
   strUnhideAll = 'will bring all windows back';
-  rsBringsCheatEngineToFront = 'brings '+strCheatEngine+' to front';
+  rsBringsShengEngineToFront = 'brings '+strShengEngine+' to front';
 
   strhappybirthday = 'Let''s sing Happy Birthday for Dark Byte today!';
   strXMess = 'Merry christmas and happy new year';
   strNewyear = 'And what are your good intentions for this year? ;-)';
-  strfuture = 'Wow,I never imagined people would use '+strCheatEngine+' up to today';
+  strfuture = 'Wow,I never imagined people would use '+strShengEngine+' up to today';
   rsEXPIRED = 'EXPIRED';
   strdontbother =
-    'Don''t even bother. '+strCheatEngine+' uses the main thread to receive messages when the scan is done, freeze it and CE will crash!';
+    'Don''t even bother. '+strShengEngine+' uses the main thread to receive messages when the scan is done, freeze it and CE will crash!';
   rsTheProcessIsnTFullyOpenedIndicatingAInvalidProcess =
     'The process isn''t fully opened. Indicating a invalid ProcessID. You still want to find out the EPROCESS? (BSOD is '
     + 'possible)';
@@ -1322,7 +1322,7 @@ resourcestring
   rsWasClickedAtPositon = ' was clicked at positon ';
   rsWidth = '   -   width=';
   rsHeight = ' , height=';
-  rsUnableToScanFixYourScanSettings = 'Unable to scan. Fix your scan settings and restart '+strCheatEngine;
+  rsUnableToScanFixYourScanSettings = 'Unable to scan. Fix your scan settings and restart '+strShengEngine;
   rsCustomLuaType = 'Custom LUA type';
   rsCustomTypeName = 'Custom Type Name';
   rsLanguage = 'Language';
@@ -3230,8 +3230,8 @@ begin
     else
     if fileexists(expectedfilename) then
       path:=expectedfilename
-    else if fileexists(cheatenginedir + expectedfilename) then
-      path:=cheatenginedir + expectedfilename
+    else if fileexists(shengenginedir + expectedfilename) then
+      path:=shengenginedir + expectedfilename
     else if fileexists( IncludeTrailingPathDelimiter(opendialog1.InitialDir)+expectedfilename) then
       path:=IncludeTrailingPathDelimiter(opendialog1.InitialDir)+expectedfilename
     else if fileexists( IncludeTrailingPathDelimiter(extractfilepath(opendialog1.FileName))+expectedfilename) then
@@ -3803,7 +3803,7 @@ begin
   p.Executable:=(path);
   p.Execute;
   {$else}
-  shellexecute(0, 'open', pchar(cheatenginedir+{$ifdef altname}'rtmtutorial-x86_64.exe'{$else}'Tutorial-x86_64.exe'{$endif}), nil, nil, sw_show);
+  shellexecute(0, 'open', pchar(shengenginedir+{$ifdef altname}'rtmtutorial-x86_64.exe'{$else}'Tutorial-x86_64.exe'{$endif}), nil, nil, sw_show);
   {$endif}
 end;
 
@@ -3909,7 +3909,7 @@ begin
     try
       Reg.RootKey := HKEY_CURRENT_USER;
 
-      if Reg.OpenKey('\Software\'+strCheatEngine+'\FoundList'+darkmodestring, True) then
+      if Reg.OpenKey('\Software\'+strShengEngine+'\FoundList'+darkmodestring, True) then
       begin
         reg.WriteInteger('FoundList.NormalValueColor', foundlistcolors.NormalValueColor);
         reg.WriteInteger('FoundList.ChangedValueColor', foundlistcolors.ChangedValueColor);
@@ -4719,7 +4719,7 @@ begin
   vartype.OnChange := nil;
   //disable the onchange event so CreateCustomType doesn't keep setting it
   try
-    if reg.OpenKey('\Software\'+strCheatEngine+'\CustomTypes\', False) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\CustomTypes\', False) then
     begin
       CustomTypes := TStringList.Create;
       try
@@ -4727,7 +4727,7 @@ begin
 
         for i := 0 to CustomTypes.Count - 1 do
         begin
-          if reg.OpenKey('\Software\'+strCheatEngine+'\CustomTypes\' + CustomTypes[i], False) then
+          if reg.OpenKey('\Software\'+strShengEngine+'\CustomTypes\' + CustomTypes[i], False) then
           begin
             try
               islua := False;
@@ -4798,7 +4798,7 @@ begin
       mtConfirmation, [mbNo, mbYes], 0) = mrYes then
     begin
       reg := tregistry.Create;
-      reg.DeleteKey('\Software\'+strCheatEngine+'\CustomTypes\' + ct.Name);
+      reg.DeleteKey('\Software\'+strShengEngine+'\CustomTypes\' + ct.Name);
       ct.remove;
       RefreshCustomTypes;
     end;
@@ -4837,7 +4837,7 @@ begin
       begin
         //delete the old one
         reg := Tregistry.Create;
-        reg.DeleteKey('\Software\'+strCheatEngine+'\CustomTypes\' + oldname);
+        reg.DeleteKey('\Software\'+strShengEngine+'\CustomTypes\' + oldname);
         freeandnil(reg);
       end;
     end;
@@ -4846,7 +4846,7 @@ begin
 
     //Add/change this to the registry
     reg := Tregistry.Create;
-    if Reg.OpenKey('\Software\'+strCheatEngine+'\CustomTypes\' + ct.Name, True) then
+    if Reg.OpenKey('\Software\'+strShengEngine+'\CustomTypes\' + ct.Name, True) then
     begin
       reg.WriteString('Script', script);
       if lua then
@@ -5111,7 +5111,7 @@ var
   s: string;
 begin
   s := scantablist.TabText[scantablist.SelectedTab];
-  if InputQuery(rsCheatEngine, rsWhatWillBeTheNewNameForThisTab, s) then
+  if InputQuery(rsShengEngine, rsWhatWillBeTheNewNameForThisTab, s) then
     scantablist.TabText[scantablist.SelectedTab] := s;
 end;
 
@@ -5899,7 +5899,7 @@ begin
   callhelp := False;
   Result := True;
 
-  wikipath:='https://wiki.cheatengine.org/index.php';
+  wikipath:='https://wiki.%63%68%65%61%74%65%6E%67%69%6E%65%2E%6F%72%67/index.php?title=Main_Page';
   wikiurl:='';
 
   if command = HELP_CONTEXT then
@@ -5910,13 +5910,13 @@ begin
       4:    wikiurl:='?title=Tutorials:AttachToProcess';
       11:   wikiurl:='?title=Help_File:Table_Extras';
       12:   wikiurl:='?title=Help_File:Memory_view';
-      19:   wikiurl:='?title=Cheat_Engine:Lua';
-      1089: wikiurl:='?title=Cheat_Engine:Auto_Assembler';
+      19:   wikiurl:='?title=Sheng_Engine:Lua';
+      1089: wikiurl:='?title=Sheng_Engine:Auto_Assembler';
     end;
 
     {$ifdef windows}
     if wikiurl='' then //no wikilink given
-      HtmlHelpA(Win32WidgetSet.AppHandle, PChar(cheatenginedir + 'cheatengine.chm'), HH_HELP_CONTEXT, Data)
+      HtmlHelpA(Win32WidgetSet.AppHandle, PChar(shengenginedir + 'shengengine.chm'), HH_HELP_CONTEXT, Data)
     else
     {$endif}
       ShellExecute(0,'open',pchar(wikipath+wikiurl),nil,nil,SW_SHOW);
@@ -7297,8 +7297,8 @@ end;
 procedure TMainForm.LogoClick(Sender: TObject);
 var s: string;
 begin
-  s:=format('http://www.cheatengine.org/?referredby=CE%.2f',[ceversion]);
-  if messagedlg(rsDoYouWantToGoToTheCheatEngineWebsite, mtConfirmation,
+  s:=format('http://www.00ue.com/53.html?referredby=CE%.2f',[ceversion]);
+  if messagedlg(rsDoYouWantToGoToTheShengEngineWebsite, mtConfirmation,
     [mbYes, mbNo], 0) = mrYes then
     ShellExecute(0, PChar('open'), PChar(s),
       PChar(''), PChar(''), SW_MAXIMIZE);
@@ -7841,7 +7841,7 @@ begin
     reg:=tregistry.Create;
     try
       Reg.RootKey := HKEY_CURRENT_USER;
-      if Reg.OpenKey('\Software\'+strCheatEngine,true) then
+      if Reg.OpenKey('\Software\'+strShengEngine,true) then
       begin
         reg.WriteInteger('scan CopyOnWrite', integer(cbCopyOnWrite.State));
         reg.WriteInteger('scan Executable', integer(cbExecutable.State));
@@ -8414,7 +8414,7 @@ begin
 
   end
   else
-    fronttext := rsBringsCheatEngineToFront;
+    fronttext := rsBringsShengEngineToFront;
 
 
   hk:=cereg.readString('BringToFrontHotkey');
@@ -8486,9 +8486,9 @@ begin
   try
     Reg.RootKey := HKEY_CURRENT_USER;
 
-    if not Reg.OpenKey('\Software\'+strCheatEngine, False) then //can't be opened. Clean install
+    if not Reg.OpenKey('\Software\'+strShengEngine, False) then //can't be opened. Clean install
     begin
-      if Reg.OpenKey('\Software\'+strCheatEngine, True) then
+      if Reg.OpenKey('\Software\'+strShengEngine, True) then
       begin
         //write some default data into the registry
         reg.WriteBool('Undo', True);
@@ -8547,7 +8547,7 @@ begin
 
   //  animatewindow(mainform.Handle,10000,AW_CENTER);
   //mainform.repaint;
-  fronttext := rsBringsCheatEngineToFront;
+  fronttext := rsBringsShengEngineToFront;
 
   if dontrunshow then
     exit;
@@ -8738,7 +8738,7 @@ begin
   fromaddress.Font.Height:=i;
   toaddress.Font.Height:=i;
 
-  if Reg.OpenKey('\Software\'+strCheatEngine+'\FoundList'+darkmodestring, false) then
+  if Reg.OpenKey('\Software\'+strShengEngine+'\FoundList'+darkmodestring, false) then
   begin
     if reg.ValueExists('FoundList.NormalValueColor') then foundlistcolors.NormalValueColor:=reg.ReadInteger('FoundList.NormalValueColor');
     if reg.ValueExists('FoundList.ChangedValueColor') then foundlistcolors.ChangedValueColor:=reg.ReadInteger('FoundList.ChangedValueColor');
@@ -9168,7 +9168,7 @@ begin
   sbOpenProcess.Click;
 end;
 
-procedure TMainForm.CloseCheatEngine1Click(Sender: TObject);
+procedure TMainForm.CloseShengEngine1Click(Sender: TObject);
 begin
   Close;
 end;
@@ -9313,7 +9313,7 @@ begin
   reg := Tregistry.Create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKey('\Software\'+strCheatEngine, True) then
+    if Reg.OpenKey('\Software\'+strShengEngine, True) then
       reg.WriteString('Initial tables dir', dir);
 
   finally
@@ -10039,13 +10039,13 @@ end;
 
 procedure TMainForm.miTutorialClick(Sender: TObject);
 begin
-  if not fileexists(cheatenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}) then
+  if not fileexists(shengenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}) then
   begin
-    if fileexists(cheatenginedir+{$ifdef altname}'rtmtutorial-i386.cepack'{$else}'Tutorial-i386.cepack'{$endif}) then
-      ceunpackfile(cheatenginedir+{$ifdef altname}'rtmtutorial-i386.cepack'{$else}'Tutorial-i386.cepack'{$endif}, cheatenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}, false);
+    if fileexists(shengenginedir+{$ifdef altname}'rtmtutorial-i386.cepack'{$else}'Tutorial-i386.cepack'{$endif}) then
+      ceunpackfile(shengenginedir+{$ifdef altname}'rtmtutorial-i386.cepack'{$else}'Tutorial-i386.cepack'{$endif}, shengenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}, false);
   end;
 
-  shellexecute(0, 'open', pchar(cheatenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}), nil, nil, sw_show);
+  shellexecute(0, 'open', pchar(shengenginedir+{$ifdef altname}'rtmtutorial-i386.exe'{$else}'Tutorial-i386.exe'{$endif}), nil, nil, sw_show);
 end;
 
 procedure TMainForm.miFlFindWhatAccessesClick(Sender: TObject);

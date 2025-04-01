@@ -784,7 +784,7 @@ resourcestring
   rsGotoAddress = 'Goto Address';
   rsFillInTheAddressYouWantToGoTo = 'Fill in the address you want to go to';
   rsMemoryViewerRunning = 'Memory Viewer - Running';
-  rsCheatEngineSingleLingeAssembler = 'Single-line assembler';
+  rsShengEngineSingleLingeAssembler = 'Single-line assembler';
   rsTypeYourAssemblerCodeHereAddress = 'Type your assembler code here: (address=%s)';
   rsTheGeneratedCodeIsByteSLongButTheSelectedOpcodeIsB = 'The generated code is %s byte(s) long, but the selected opcode is %s byte(s) long! Do you want to replace the '
     +'incomplete opcode(s) with NOP''s?';
@@ -804,7 +804,7 @@ resourcestring
   rsYouWantToGiveAnAdditional32BitParameterWillShowUpI = 'You want to give an additional 32-bit parameter? (Will show up in (R)/(E)BX)';
   rsPleaseEnterAValidHexadecimalValue = 'Please enter a valid hexadecimal value';
   rsPleaseTargetAProcessFirst = 'Please target a process first';
-  rsPleaseTargetAnotherProcess = 'Start another version of '+strCheatEngine+' and attach to that instead';
+  rsPleaseTargetAnotherProcess = 'Start another version of '+strShengEngine+' and attach to that instead';
   rsDoYouWantToExecuteAFunctionOfTheDll = 'Do you want to execute a function of the dll?';
   rsInjectDll = 'Inject dll';
   rsSelectTheFunctionYouWantToExecute = 'Select the function you want to execute';
@@ -2629,7 +2629,7 @@ begin
   reg:=Tregistry.Create;
   try
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+darkmodestring+'\',true) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+darkmodestring+'\',true) then
     begin
       reg.{$ifdef windows}WriteBinaryData{$else}WriteString{$endif}('colors', {$ifndef windows}bintohexs({$endif}disassemblerview.colors, sizeof(disassemblerview.colors)){$ifndef windows}){$endif};
 
@@ -2649,16 +2649,16 @@ begin
       reg.WriteBool('CenterOnAddressChangeOutsideView', disassemblerview.CenterOnAddressChangeOutsideView);
     end;
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
       SaveFontToRegistry(disassemblerview.font, reg);
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Hexview '+inttostr(screen.PixelsPerInch),true) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Hexview '+inttostr(screen.PixelsPerInch),true) then
     begin
       reg.writeInteger('spaceBetweenLines', hexview.spaceBetweenLines);
       reg.WriteBool('showStatusBar', hexview.statusbar.Visible);
     end;
 
-    if reg.openkey('\Software\'+strCheatEngine+'\Hexview'+darkmodestring,true) then
+    if reg.openkey('\Software\'+strShengEngine+'\Hexview'+darkmodestring,true) then
     begin
       reg.{$ifdef windows}WriteBinaryData{$else}WriteString{$endif}('colors', {$ifndef windows}bintohexs({$endif}hexview.colors, sizeof(hexview.colors)){$ifndef windows}){$endif};
       reg.WriteInteger('SeperaterColor', hexview.fseperatorColor);
@@ -2667,10 +2667,10 @@ begin
       reg.WriteInteger('FadeColor', hexview.ffadeColor);
     end;
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Hexview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Hexview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
       SaveFontToRegistry(hexview.hexfont, reg);
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\RegisterView '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\RegisterView '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,true) then
       SaveFontToRegistry(scrollbox1.Font, reg);
 
   finally
@@ -2863,13 +2863,13 @@ begin
   f:=TFont.create;
   reg:=Tregistry.Create;
   try
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
     begin
       LoadFontFromRegistry(f, reg);
       disassemblerview.font:=f;
     end;
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+darkmodestring+'\',false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Disassemblerview '+inttostr(screen.PixelsPerInch)+darkmodestring+'\',false) then
     begin
       if reg.ValueExists('colors') then
       begin
@@ -2914,7 +2914,7 @@ begin
       disassemblerview.reinitialize;
     end;
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Hexview '+inttostr(screen.PixelsPerInch),false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Hexview '+inttostr(screen.PixelsPerInch),false) then
     begin
       if reg.ValueExists('spaceBetweenLines') then
         hexview.spaceBetweenLines:=reg.ReadInteger('spaceBetweenLines');
@@ -2924,7 +2924,7 @@ begin
 
     end;
 
-    if reg.openkey('\Software\'+strCheatEngine+'\Hexview'+darkmodestring,true) then
+    if reg.openkey('\Software\'+strShengEngine+'\Hexview'+darkmodestring,true) then
     begin
       if reg.ValueExists('colors') then
       begin
@@ -2943,13 +2943,13 @@ begin
 
 
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Hexview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Hexview '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
     begin
       LoadFontFromRegistry(f, reg);
       hexview.hexfont:=f;
     end;
 
-    if reg.OpenKey('\Software\'+strCheatEngine+'\RegisterView '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\RegisterView '+inttostr(screen.PixelsPerInch)+'\Font'+darkmodestring,false) then
     begin
       LoadFontFromRegistry(f, reg);
 //      scrollbox1.Font:=f;
@@ -3696,7 +3696,7 @@ begin
 
   //  copy
 
-    assemblercode:=InputboxTop(rsCheatEngineSingleLingeAssembler, Format(rsTypeYourAssemblerCodeHereAddress, [inttohex(Address, 8)]), assemblercode, x='', canceled{$ifndef darwin},assemblerHistory{$endif});
+    assemblercode:=InputboxTop(rsShengEngineSingleLingeAssembler, Format(rsTypeYourAssemblerCodeHereAddress, [inttohex(Address, 8)]), assemblercode, x='', canceled{$ifndef darwin},assemblerHistory{$endif});
     if not canceled then
     begin
 
@@ -4044,7 +4044,7 @@ begin
 end;
 
 procedure TMemoryBrowser.Savememoryregion1Click(Sender: TObject);
-{will save a cheat engine memory region file .CEM}
+{will save a sheng engine memory region file .CEM}
 begin
   if frmSaveMemoryRegion=nil then
     frmSaveMemoryRegion:=TFrmSaveMemoryRegion.create(self);

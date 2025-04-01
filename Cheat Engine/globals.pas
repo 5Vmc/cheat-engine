@@ -53,7 +53,7 @@ var
 
 
   TablesDir: string;
-  CheatEngineDir: String;
+  ShengEngineDir: String;
   WindowsDir: string;
 
   username: string;

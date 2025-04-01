@@ -72,7 +72,7 @@ resourcestring
   rsErrorWhileTryingToCreateTheConfigurationStructure = 'Error while trying '
     +'to create the configuration structure! (Which effectively renders this '
     +'whole feature useless) Errorcode=%s';
-  rsCheatEngineFailedToGetIntoTheConfig = strCheatEngine+' failed to get into '
+  rsShengEngineFailedToGetIntoTheConfig = strShengEngine+' failed to get into '
     +'the config of the selected program. (Error=%s)';
   rsFailureDuplicatingTheEventHandlesToTheOtherProcess = 'Failure duplicating '
     +'the event handles to the other process';
@@ -584,7 +584,7 @@ begin
 
       OutputDebugString('MapViewOfFile failed: '+inttostr(e));
 
-      raise exception.Create(Format(rsCheatEngineFailedToGetIntoTheConfig, [
+      raise exception.Create(Format(rsShengEngineFailedToGetIntoTheConfig, [
         inttostr(e)]));
     end;
 
@@ -631,7 +631,7 @@ begin
     begin
       try
         debuggerAttachStatus:='Injecting vehdebug'+prefix+'.dll';
-        InjectDll(cheatenginedir+'vehdebug'+prefix+'.dll');
+        InjectDll(shengenginedir+'vehdebug'+prefix+'.dll');
       except
       end;
     end;

@@ -1,5 +1,5 @@
 unit feces;
-//friends endorsing cheat engine system
+//friends endorsing sheng engine system
 
 {$mode objfpc}{$H+}
 
@@ -36,9 +36,9 @@ resourcestring
   rsIsPasswordCorrect='Is the password correct?';
   rsCouldNotOpenTheAlgorithmProvider = 'Could not open the algorithm provider.  Load the table as if it''s signature is valid?';
   rsBcryptCouldNotBeUsed = 'bcrypt could not be used';
-  rsSelectYourCheatEngineSignatureFile = 'Select your '+strCheatEngine+' signature '
+  rsSelectYourShengEngineSignatureFile = 'Select your '+strShengEngine+' signature '
     +'file';
-  rsCheatEngineSignatureFiles = strCheatEngine+' signature files';
+  rsShengEngineSignatureFiles = strShengEngine+' signature files';
   rsThisTableHasBeenModified = 'This table has been modified. To load this '
     +'table, remove the signature part with an editor (And check the file for '
     +'suspicious things while you''re at it)';
@@ -47,11 +47,11 @@ resourcestring
   rsFailedHashingTable2 = 'Failed hashing table 2';
   rsFailedCreatingHash2 = 'Failed creating hash 2';
   rsInvalidPublicKey = 'The provided public key is invalid(Not signed by the '
-    +strCheatEngine+' guy). Remove the signature section to load this table';
+    +strShengEngine+' guy). Remove the signature section to load this table';
   rsFailedCreatingHasAlgorithmProvider2 = 'Failed creating has algorithm '
     +'provider';
   rsFailedToLoadTheTablePublicKey = 'Failed to load the table public key';
-  rsFailedToLoadCheatEnginePublicKey = 'Failed to load '+strCheatEngine+' public key';
+  rsFailedToLoadShengEnginePublicKey = 'Failed to load '+strShengEngine+' public key';
   rsNoSignedHash = 'This table''s signature does not contain a SignedHash '
     +'element';
   rsNoPublicKey =
@@ -59,7 +59,7 @@ resourcestring
 
 
 var
-  cheatenginepublictablekey: BCRYPT_KEY_HANDLE=0;
+  shengenginepublictablekey: BCRYPT_KEY_HANDLE=0;
   publictablekey: array [0..139] of byte =($45, $43, $53, $35, $42, $00, $00,
    $00, $01, $A3, $7A, $45, $2A, $66, $60, $85, $C7, $50, $9D, $8C, $3F, $34,
    $57, $D3, $FF, $50, $E3, $32, $CA, $4C, $4D, $61, $9B, $00, $19, $7E, $61,
@@ -235,11 +235,11 @@ begin
     begin
 
 
-      if cheatenginepublictablekey=0 then
+      if shengenginepublictablekey=0 then
       begin
-        s:=BCryptImportKeyPair(hAlgoritm, 0, BCRYPT_ECCPUBLIC_BLOB, cheatenginepublictablekey, @publictablekey[0], 140, 0);
+        s:=BCryptImportKeyPair(hAlgoritm, 0, BCRYPT_ECCPUBLIC_BLOB, shengenginepublictablekey, @publictablekey[0], 140, 0);
         if not succeeded(s) then raise exception.create(
-          rsFailedToLoadCheatEnginePublicKey);
+          rsFailedToLoadShengEnginePublicKey);
       end;
 
       //load the public key of this table while we're at it
@@ -316,7 +316,7 @@ begin
 
       //now verify this hash with the signature and the ce public key
 
-      s:=BCryptVerifySignature(cheatenginepublictablekey,nil,hashbuffer,hashlength,sig, signaturesize,0);
+      s:=BCryptVerifySignature(shengenginepublictablekey,nil,hashbuffer,hashlength,sig, signaturesize,0);
       if not succeeded(s) then raise exception.create(rsInvalidPublicKey);
 
       //still here so the public key is valid
@@ -583,8 +583,8 @@ begin
   begin
     od:=TOpenDialog.Create(nil);
     try
-      od.Title:=rsSelectYourCheatEngineSignatureFile;
-      od.Filter:=rsCheatEngineSignatureFiles+'|*.CESIG';
+      od.Title:=rsSelectYourShengEngineSignatureFile;
+      od.Filter:=rsShengEngineSignatureFiles+'|*.CESIG';
       od.Options:=od.Options+[ofFileMustExist, ofDontAddToRecent];
       if od.execute then
         pathtosigfile:=encodepointer(strnew(pchar(od.FileName)))

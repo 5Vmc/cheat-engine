@@ -109,7 +109,7 @@ implementation
 uses forms, controls, Registry, Win32Proc{$ifndef skip_mainunit2}, mainunit2{$endif};
 
 {$ifdef skip_mainunit2}
-const strCheatEngine='Cheat Engine';
+const strShengEngine='Sheng Engine';
 {$endif}
 
 
@@ -276,7 +276,7 @@ initialization
     reg:=tregistry.create;
     try
       Reg.RootKey := HKEY_CURRENT_USER;
-      if Reg.OpenKey('\Software\'+strCheatEngine,false) then
+      if Reg.OpenKey('\Software\'+strShengEngine,false) then
       begin
         if reg.ValueExists('Disable DarkMode Support') and
            reg.ReadBool('Disable DarkMode Support') then exit;

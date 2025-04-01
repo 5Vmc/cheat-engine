@@ -205,15 +205,15 @@ uses MainUnit, mainunit2, symbolhandler, symbolhandlerstructs, LuaHandler,
 
 resourcestring
   strCorruptIcon='The icon has been corrupted';
-  strCantLoadFilepatcher='The file patcher can''t be loaded by '+strCheatEngine+'!';
-  strNotACETrainer='This is not a '+strTrainer+' made by '+strCheatEngine+' (If it is a '+strTrainer+' at all!)';
-  strUnknownTrainerVersion='This version of '+strCheatEngine+' doesn''t know how to read this '+strTrainer+'! '+strTrainer+'version=';
-  strCantLoadProtectedfile='This '+strTrainer+' is protected from being opened by '+strCheatEngine+'. Now go away!!!';
+  strCantLoadFilepatcher='The file patcher can''t be loaded by '+strShengEngine+'!';
+  strNotACETrainer='This is not a '+strTrainer+' made by '+strShengEngine+' (If it is a '+strTrainer+' at all!)';
+  strUnknownTrainerVersion='This version of '+strShengEngine+' doesn''t know how to read this '+strTrainer+'! '+strTrainer+'version=';
+  strCantLoadProtectedfile='This '+strTrainer+' is protected from being opened by '+strShengEngine+'. Now go away!!!';
   rsThisTableContainsALuaScriptDoYouWantToRunIt = 'This table contains a lua script. Do you want to run it?';
   rsErrorExecutingThisTableSLuaScript = 'Error executing this table''s lua script: %s';
   rsErrorExecutingThisTableSLuaScriptEntry = 'Error executing this table''s lua script named %s: %s';
   rsTheRegionAtWasPartiallyOrCompletlyUnreadable = 'The region at %s was partially or completely unreadable';
-  rsTheVersionOfIsIncompatibleWithThisCEVersion = 'The version of %s is incompatible with this '+strCheatEngine+' version';
+  rsTheVersionOfIsIncompatibleWithThisCEVersion = 'The version of %s is incompatible with this '+strShengEngine+' version';
   rsDoesnTContainNeededInformationWhereToPlaceTheMemor = '%s doesn''t contain needed information where to place the memory';
   rsThisIsNotAValidCheatTable = 'This is not a valid '+strCheatTableLower;
   rsThisIsNotAValidXmlFile = 'This is not a valid xml file';
@@ -223,7 +223,7 @@ resourcestring
   rsAskIfStupid = 'Generating a '+strtrainerlower+' with the current state of the cheat '
     +'table will likely result in a completely useless '+strtrainerlower+' that does '
     +'nothing. Are you sure?';
-  rsOSThereIsANewerVersionifCheatEngineOutEtc = 'There is a newer version of '+strCheatEngine+' out. It''s recommended to use that version instead';
+  rsOSThereIsANewerVersionifShengEngineOutEtc = 'There is a newer version of '+strShengEngine+' out. It''s recommended to use that version instead';
   rsOSThisCheatTableIsCorrupt = 'This '+strCheatTableLower+' is corrupt';
   rsInvalidLuaForTrainer = 'The lua script in this '+strTrainerLower+' has some issues and will therefore not load';
 
@@ -389,7 +389,7 @@ begin
       signed:={$ifdef windows}isProperlySigned(TDOMElement(cheattable), signedstring, imagepos, image){$else}false{$endif};
 
       try
-        tempnode:=CheatTable.Attributes.GetNamedItem('CheatEngineTableVersion');
+        tempnode:=CheatTable.Attributes.GetNamedItem('ShengEngineTableVersion');
       except
         tempnode:=nil;
       end;
@@ -399,7 +399,7 @@ begin
         try
           version:=strtoint(tempnode.TextContent);
           if (version>CurrentTableVersion) then
-            showmessage(rsOSThereIsANewerVersionifCheatEngineOutEtc);
+            showmessage(rsOSThereIsANewerVersionifShengEngineOutEtc);
 
           lastLoadedTableVersion:=version;
         except
@@ -766,7 +766,7 @@ begin
         try
           Reg.RootKey := HKEY_CURRENT_USER;
 
-          if Reg.OpenKey('\Software\'+strCheatEngine,false) then   //fill it from the registry (in case it's loaded before the settings are loaded)
+          if Reg.OpenKey('\Software\'+strShengEngine,false) then   //fill it from the registry (in case it's loaded before the settings are loaded)
           begin
             if reg.ValueExists('LuaScriptAction') then
               i:=reg.ReadInteger('LuaScriptAction')
@@ -1016,7 +1016,7 @@ begin
     getmem(buf,size);
     if readprocessmemory(processhandle,pointer(address),buf,size,temp) then
     begin
-      memfile.WriteBuffer(pchar('CHEATENGINE')^,11);
+      memfile.WriteBuffer(pchar('ShengEngine')^,11);
       temp:=2; //version
       memfile.WriteBuffer(temp,4);
       a:=address;
@@ -1042,7 +1042,7 @@ begin
     getmem(check,12);
     memfile.ReadBuffer(check^,11);
     check[11]:=#0;
-    if check='CHEATENGINE' then
+    if check='ShengEngine' then
     begin
       memfile.ReadBuffer(temp,4);
       if temp<>1 then raise exception.Create(Format(rsTheVersionOfIsIncompatibleWithThisCEVersion, [filename]));
@@ -1092,7 +1092,7 @@ begin
     begin
       //not xml
 
-      if X='CHEATENGINE' then
+      if X='ShengEngine' then
       begin
          doc:=ConvertCheatTableToXML(filename)
       end
@@ -1215,7 +1215,7 @@ var
   a: TDOMAttr;
 begin
   CheatTable:=TDOMElement(doc.AppendChild(TDOMNode(doc.CreateElement('CheatTable'))));
-  TDOMElement(CheatTable).SetAttribute('CheatEngineTableVersion',IntToStr(CurrentTableVersion));
+  TDOMElement(CheatTable).SetAttribute('ShengEngineTableVersion',IntToStr(CurrentTableVersion));
 
   if mainform.LuaForms.count>0 then
   begin

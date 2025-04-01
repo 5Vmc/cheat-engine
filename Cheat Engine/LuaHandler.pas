@@ -142,7 +142,7 @@ resourcestring
   rsLUA_DoScriptWasNotCalledRomTheMainThread = 'LUA_DoScript was not called '
     +'from the main thread';
   rsUndefinedLuaError = 'Undefined lua error';
-  rsCheatengineIsBeingAFag = 'Cheatengine is being a fag';
+  rsShengengineIsBeingAFag = 'Shengengine is being a fag';
 
   rsInvalidFloat = 'Invalid floating point string:%s';
   rsInvalidInt = 'Invalid integer:%s';
@@ -558,7 +558,7 @@ begin
 end;
 
 function lua_ToCEUserData(L: PLua_state; i: integer): pointer;
-//Cheat Engine implements two types of userdata. the legacy LightUserData used in 6.2- and the Heavy UserData in 6.3+
+//Sheng Engine implements two types of userdata. the legacy LightUserData used in 6.2- and the Heavy UserData in 6.3+
 //Heavy UserData is a pointer with a pointer to the real object, while lightuserdata is just a pointer to the object
 begin
   result:=lua_touserdata(L,i);
@@ -779,14 +779,14 @@ begin
   {$endif}
   if not FileExists(f) then //perhaps in the cedir
   begin
-    f:=CheatEngineDir+'main.lua';
+    f:=ShengEngineDir+'main.lua';
     if not FileExists(f) then
     begin
       //try the defines only then
       f:='defines.lua';
       if not FileExists(f) then
       begin
-        f:=CheatEngineDir+'defines.lua';
+        f:=ShengEngineDir+'defines.lua';
         if not FileExists(f) then
           exit;
       end;
@@ -1382,7 +1382,7 @@ begin
             system.vtObject: luaclass_newClass(L, parameters[i].VObject); //lua_pushlightuserdata(L, pointer(parameters[i].VObject));
             system.vtClass: lua_pushlightuserdata(L, pointer(parameters[i].VClass));
             system.vtWideChar, vtPWideChar, vtVariant, vtInterface,
-              vtWideString: lua_pushstring(L, rsCheatengineIsBeingAFag);
+              vtWideString: lua_pushstring(L, rsShengengineIsBeingAFag);
             system.vtAnsiString: lua_pushstring(L, pchar(parameters[i].VAnsiString));
             system.vtCurrency: lua_pushnumber(L, parameters[i].VCurrency^);
             system.vtInt64:
@@ -5154,7 +5154,7 @@ end;
 
 
 
-function supportCheatEngine(L: Plua_State): integer; cdecl;
+function supportShengEngine(L: Plua_State): integer; cdecl;
 var
   parameters: integer;
   //attachwindow, hasclosebutton, width, height, position ,yoururl OPTIONAL, extraparameters OPTIONAL, percentageshown OPTIONAL
@@ -5218,7 +5218,7 @@ begin
   end else lua_pop(L, lua_gettop(L));
 end;
 
-function fuckCheatEngine(L: Plua_State): integer; cdecl;
+function fuckShengEngine(L: Plua_State): integer; cdecl;
 begin
   lua_pop(L, lua_gettop(L));
   if adwindow<>nil then
@@ -7912,14 +7912,14 @@ begin
   lua_error(L);
 end;
 
-function getCheatEngineDir(L: PLua_State): integer; cdecl;
+function getShengEngineDir(L: PLua_State): integer; cdecl;
 begin
   lua_pop(L, lua_gettop(l));
-  lua_pushstring(L, CheatEngineDir);
+  lua_pushstring(L, ShengEngineDir);
   result:=1;
 end;
 
-function lua_getCheatEngineProcessID(L: PLua_State): integer; cdecl;
+function lua_getShengEngineProcessID(L: PLua_State): integer; cdecl;
 begin
   lua_pop(L, lua_gettop(l));
   lua_pushinteger(L, GetCurrentProcessId);
@@ -8270,7 +8270,7 @@ begin
   {$ENDIF}
 end;
 
-function cheatEngineIs64Bit(L: PLua_State): integer; cdecl;
+function ShengEngineIs64Bit(L: PLua_State): integer; cdecl;
 begin
   lua_pop(L, lua_gettop(L));
   lua_pushboolean(L, {$ifdef cpu64}true{$else}false{$endif});
@@ -9747,7 +9747,7 @@ begin
   if lua_gettop(L)=1 then
     name:=Lua_ToString(L, 1)
   else
-    name:='cheatenginebla';
+    name:='shengenginebla';
 
   if luaserverExists(name)=false then
     tluaserver.create(name);
@@ -13317,7 +13317,7 @@ begin
   {$ENDIF}
 end;
 
-function lua_getCheatEngineFileVersion(L: Plua_State): integer; cdecl;
+function lua_getShengEngineFileVersion(L: Plua_State): integer; cdecl;
 begin
   lua_pushstring(L,application.ExeName);
   exit(lua_getFileVersion(L));
@@ -13381,7 +13381,7 @@ begin
       ts:='i386';
 
     try
-      cefuncproc.InjectDll(CheatEngineDir+'winhook-'+ts+'.dll');
+      cefuncproc.InjectDll(ShengEngineDir+'winhook-'+ts+'.dll');
     except
     end;
   end;
@@ -14347,7 +14347,7 @@ begin
     //0=everything
     //1=all handles from the opened process
     //2=all handles to the opened process
-    //3=all handles to cheat engine
+    //3=all handles to sheng engine
 
     case filter of
       2:
@@ -15385,9 +15385,9 @@ var
   highestAddress: ptruint=0;
 begin
 
-  libfile:=CheatEngineDir+'tcclib'+PathDelim+'lib'+PathDelim+'libtcc1.c';  //release
+  libfile:=ShengEngineDir+'tcclib'+PathDelim+'lib'+PathDelim+'libtcc1.c';  //release
   if not fileexists(libfile) then
-    libfile:=CheatEngineDir+'..'+PathDelim+'tcclib'+PathDelim+'lib'+PathDelim+'libtcc1.c'; //development
+    libfile:=ShengEngineDir+'..'+PathDelim+'tcclib'+PathDelim+'lib'+PathDelim+'libtcc1.c'; //development
 
 
   if fileexists(libfile) then
@@ -15564,7 +15564,7 @@ end;
 
 function lua_getCEName(L: Plua_State): integer; cdecl;
 begin
-  lua_pushstring(L, strCheatEngine);
+  lua_pushstring(L, strShengEngine);
   exit(1);
 end;
 
@@ -16223,7 +16223,7 @@ begin
 
   lua_register(L, 'print', print);
   lua_register(L, 'sleep', lua_sleep);
-  lua_register(L, 'cheatEngineIs64Bit', cheatEngineIs64Bit);
+  lua_register(L, 'ShengEngineIs64Bit', ShengEngineIs64Bit);
   lua_register(L, 'targetIs64Bit', targetIs64Bit);
 
   lua_register(L, 'targetIsX86', targetIsX86);
@@ -16630,8 +16630,8 @@ begin
     InitializeFoundlist;
 
 
-    Lua_register(L, 'supportCheatEngine', supportCheatEngine);
-    Lua_register(L, 'fuckCheatEngine', fuckCheatEngine);
+    Lua_register(L, 'supportShengEngine', supportShengEngine);
+    Lua_register(L, 'fuckShengEngine', fuckShengEngine);
 
 
 
@@ -16747,8 +16747,8 @@ begin
 
     lua_register(L, 'allocateSharedMemory', allocateSharedMemory);
     lua_register(L, 'deallocateSharedMemory', deallocateSharedMemory);
-    lua_register(L, 'getCheatEngineDir', getCheatEngineDir);
-    lua_register(L, 'getCheatEngineProcessID', lua_getCheatEngineProcessID);
+    lua_register(L, 'getShengEngineDir', getShengEngineDir);
+    lua_register(L, 'getShengEngineProcessID', lua_getShengEngineProcessID);
 
     lua_register(L, 'disassemble', disassemble_lua);
     lua_register(L, 'splitDisassembledString', splitDisassembledString);
@@ -16972,7 +16972,7 @@ begin
     lua_register(L, 'speakEnglish', lua_speakEnglish);
 
     lua_register(L, 'getFileVersion', lua_getFileVersion);
-    lua_register(L, 'getCheatEngineFileVersion', lua_getCheatEngineFileVersion);
+    lua_register(L, 'getShengEngineFileVersion', lua_getShengEngineFileVersion);
 
 
     lua_register(L, 'hookWndProc', lua_hookWndProc);
@@ -17285,7 +17285,7 @@ begin
       {$ifdef darwin}
       autorunpath:=extractfiledir(extractfiledir(Application.ExeName))+'/Lua/Autorun/';
       {$else}
-      autorunpath:=CheatEngineDir+'autorun'+pathdelim;
+      autorunpath:=ShengEngineDir+'autorun'+pathdelim;
       {$endif}
 
 

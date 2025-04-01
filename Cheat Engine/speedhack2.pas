@@ -150,7 +150,7 @@ begin
       begin
         ForceDirectories('/usr/local/lib/');
 
-        path:=cheatenginedir+'libspeedhack.dylib';
+        path:=shengenginedir+'libspeedhack.dylib';
         if CopyFile(path, '/usr/local/lib/libspeedhack.dylib', true)=false then
         begin
           raise exception.create('Failure copying libspeedhack.dylib to /usr/local/lib');
@@ -180,7 +180,7 @@ begin
       if e then
       begin
         OutputDebugString('Speedhack: speedhackversion_GetTickCount not found. Injecting DLL');
-        injectdll(CheatEngineDir+fname);
+        injectdll(ShengEngineDir+fname);
 
         OutputDebugString('Speedhack: after dll injection. Waiting for symbols reinitialized');
         symhandler.reinitialize;

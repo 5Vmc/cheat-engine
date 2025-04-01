@@ -93,7 +93,7 @@ function ceshare.LoadProcessList()
   end
   
   --do not bother with the ce process
-  local ceml=enumModules(getCheatEngineProcessID())
+  local ceml=enumModules(getShengEngineProcessID())
   if ceml then    
     local cemodule=ceml[1]
     if cemodule then    

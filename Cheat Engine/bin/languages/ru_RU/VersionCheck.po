@@ -11,8 +11,8 @@ msgid "Check for new version"
 msgstr "Проверить наличие новой версии"
 
 #: VC-NCA
-msgid "Cheat Engine %s is available at www.cheatengine.org. Go there now?"
-msgstr "Cheat Engine %s доступен на www.cheatengine.org. Перейти на него сейчас?"
+msgid "Sheng Engine %s is available at www.00ue.com. Go there now?"
+msgstr "Sheng Engine %s доступен на www.00ue.com. Перейти на него сейчас?"
 
 #: VC-UP2D
 msgid "You are up to date. The latest version is %s"
@@ -31,8 +31,8 @@ msgid "In how many days should I notify you again?"
 msgstr "Через сколько дней я снова должен вас уведомить?"
 
 #: VC-SETTINGS-TEXT
-msgid "Check for updates when Cheat Engine starts"
-msgstr "Проверять наличие обновлений при запуске Cheat Engine"
+msgid "Check for updates when Sheng Engine starts"
+msgstr "Проверять наличие обновлений при запуске Sheng Engine"
 
 #: VC-INTERVAL
 msgid "Interval(days):"

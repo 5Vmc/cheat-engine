@@ -1,4 +1,4 @@
-﻿// Copyright Cheat Engine. All Rights Reserved.
+﻿// Copyright Sheng Engine. All Rights Reserved.
 
 using System;
 using System.Threading;

@@ -1126,7 +1126,7 @@ typedef DWORD LCID;
   
       //LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
     
-    //cheat engine modification start
+    //sheng engine modification start
     LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value)
     {
       LONG Old;
@@ -1165,7 +1165,7 @@ typedef DWORD LCID;
       return Value;
     }
     
-    //cheat engine modification start
+    //sheng engine modification start
     LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value)
     {
       LONGLONG Old;
@@ -1182,7 +1182,7 @@ typedef DWORD LCID;
 #ifndef _X86AMD64_
     __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return InterlockedExchangeAdd64(Addend,Value) + Value; }
 #endif 
-   //cheat engine modification stop
+   //sheng engine modification stop
 
 #define CacheLineFlush(Address) _mm_clflush(Address)
 
@@ -1247,7 +1247,7 @@ typedef DWORD LCID;
     DWORD64 ShiftLeft128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
     DWORD64 ShiftRight128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
 
-#ifndef cheatengine
+#ifndef shengengine
 #define Multiply128 _mul128
 
     LONG64 Multiply128(LONG64 Multiplier,LONG64 Multiplicand,LONG64 *HighProduct);
@@ -1274,7 +1274,7 @@ typedef DWORD LCID;
       return extractedProduct;
     }
 
-#endif //cheatengine  (Cheat Engine Modification)
+#endif //shengengine  (Sheng Engine Modification)
 
     __CRT_INLINE BYTE __readgsbyte(DWORD Offset) {
       BYTE ret;
@@ -5093,7 +5093,7 @@ typedef DWORD LCID;
 
     __CRT_INLINE PVOID RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt) {
       volatile char *vptr =(volatile char *)ptr;
-//#ifdef __x86_64  //cheat engine modification start
+//#ifdef __x86_64  //sheng engine modification start
 //      __stosb((PBYTE)((DWORD64)vptr),0,cnt);
 //#else
       while(cnt) {
@@ -5101,7 +5101,7 @@ typedef DWORD LCID;
 	vptr++;
 	cnt--;
       }
-//#endif  //cheat engine modification stop
+//#endif  //sheng engine modification stop
       return ptr;
     }
 

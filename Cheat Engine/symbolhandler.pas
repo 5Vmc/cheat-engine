@@ -1666,7 +1666,7 @@ begin
     else
       usedtempdir:=GetTempDir;
 
-    symbolpath:=usedtempdir+strCheatEngine+' Symbols'+pathdelim;
+    symbolpath:=usedtempdir+strShengEngine+' Symbols'+pathdelim;
     ForceDirectory(symbolpath);
 
     InitializeSQLite;
@@ -6462,7 +6462,7 @@ var
   s: string;
   i,j: integer;
 begin
-  s:=cheatenginedir+'commonmodulelist.txt';
+  s:=shengenginedir+'commonmodulelist.txt';
   if FileExists(s) then //if the list exists
   begin
     if commonModuleList=nil then
@@ -6709,17 +6709,17 @@ begin
 {$ifdef windows}
   //first load the latest version
   {$ifdef cpu32}
-  dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win32\dbghelp.dll'));
+  dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win32\dbghelp.dll'));
   {$else}
-  dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win64\dbghelp.dll'));
+  dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win64\dbghelp.dll'));
   {$endif}
 
   if dbghlp=0 then //if that fails, try the old one with the same searchpath
   begin
     {$ifdef cpu32}
-    dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win32\old\dbghelp.dll'));
+    dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win32\old\dbghelp.dll'));
     {$else}
-    dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win64\old\dbghelp.dll'));
+    dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win64\old\dbghelp.dll'));
     {$endif}
   end;
 
@@ -6736,16 +6736,16 @@ begin
     end;
 
     {$ifdef cpu32}
-    p:=CheatEngineDir+'\win32\old';
+    p:=ShengEngineDir+'\win32\old';
     {$else}
-    p:=CheatEngineDir+'\win64\old';
+    p:=ShengEngineDir+'\win64\old';
     {$endif}
     DLLDirectoryCookie:=AddDllDirectory(@p[1]);  //external dll's now use the old path
 
     {$ifdef cpu32}
-    dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win32\old\dbghelp.dll'));
+    dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win32\old\dbghelp.dll'));
     {$else}
-    dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win64\old\dbghelp.dll'));
+    dbghlp:=LoadLibrary(pchar(ShengEngineDir+'\win64\old\dbghelp.dll'));
     {$endif}
 
     if dbghlp=0 then
@@ -6830,7 +6830,7 @@ begin
   reg:=Tregistry.Create; //do this as the settings may not have been loaded yet
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKey('\Software\'+strCheatEngine,false) then
+    if Reg.OpenKey('\Software\'+strShengEngine,false) then
     begin
       if reg.ValueExists('Don''t use tempdir') then
         dontusetempdir:=reg.ReadBool('Don''t use tempdir');
@@ -6876,7 +6876,7 @@ begin
   if usedtempdir[length(usedtempdir)]<>PathDelim then
     usedtempdir:=usedtempdir+PathDelim;
 
-  databasepath:=usedtempdir+strCheatEngine+' Symbols'+pathdelim+'structures.sqlite';
+  databasepath:=usedtempdir+strShengEngine+' Symbols'+pathdelim+'structures.sqlite';
 end;
 
 initialization

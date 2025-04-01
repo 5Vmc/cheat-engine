@@ -21,9 +21,9 @@
 
 
 #if !defined ONE_SOURCE || ONE_SOURCE
-//cheat engine api redirect
+//sheng engine api redirect
 #include "apiredirect.c"
-//cheat engine api redirect
+//sheng engine api redirect
 #include "tccpp.c"
 #include "tccgen.c"
 #include "tccelf.c"
@@ -598,11 +598,11 @@ no_file:
             longjmp(s1->error_jmp_buf, 1);
     }
 
-	//Cheat Engine
+	//Sheng Engine
 	int *p = NULL; //just raise an exception (for mac this needs to be a real exception)
 	*p = *p * 10;
 	//exit(1);
-	//Cheat Engine Stop
+	//Sheng Engine Stop
 	
 }
 
@@ -622,7 +622,7 @@ LIBTCCAPI void *tcc_get_error_opaque(TCCState *s)
     return s->error_opaque;
 }
 
-//Cheat Engine start
+//Sheng Engine start
 LIBTCCAPI void tcc_set_symbol_lookup_func(TCCState *s, void *userdata, void *(*symbol_lookup_func)(void* userdata, const char *symbolname))
 {
 	s->symbol_lookup_func = symbol_lookup_func;
@@ -683,7 +683,7 @@ LIBTCCAPI int tcc_get_stab(TCCState *s, void *output, int *outputlength) //retur
 		return -1; //invalid pointers
 	
 }
-//Cheat Engine stop
+//Sheng Engine stop
 
 
 /* error without aborting current compilation */
@@ -792,13 +792,13 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
         if (fd == -1) {
             int len = strlen(str);
 			
-			//Cheat Engine <string> counter Start
+			//Sheng Engine <string> counter Start
 			char sourcename[200];
 			snprintf(sourcename, 200, "<string-%d>", s1->stringcompiles);
 			s1->stringcompiles++;
-			//Cheat Engine <string> counter Stop
+			//Sheng Engine <string> counter Stop
 
-            tcc_open_bf(s1, sourcename, len);   //Cheat Engine <string> counter -> "<string>" -> sourcename 
+            tcc_open_bf(s1, sourcename, len);   //Sheng Engine <string> counter -> "<string>" -> sourcename 
             memcpy(file->buffer, str, len);
         } else {
             tcc_open_bf(s1, str, 0);
@@ -929,7 +929,7 @@ LIBTCCAPI void tcc_delete(TCCState *s1)
     cstr_free(&s1->cmdline_incl);
 #ifdef TCC_IS_NATIVE
     /* free runtime memory */
-	if (0 == s1->binary_writer_func) //cheat engine: Don't bother freeing if a binary writer function is set (CE will do that)
+	if (0 == s1->binary_writer_func) //sheng engine: Don't bother freeing if a binary writer function is set (CE will do that)
       tcc_run_free(s1);
 #endif
 
@@ -1082,7 +1082,7 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
         case AFF_BINTYPE_DYN:
             if (s1->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
-//Cheat Engine
+//Sheng Engine
 #ifndef _WINDOWS
                 void *dl = dlopen(filename, RTLD_GLOBAL | RTLD_LAZY);
                 if (dl) {
@@ -1090,7 +1090,7 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
                     ret = 0;
                 }
 #endif //_WINDOWS
-//Cheat Engine Stop
+//Sheng Engine Stop
 #endif
                 break;
             }
@@ -1332,10 +1332,10 @@ LIBTCCAPI int tcc_add_symbol(TCCState *s1, const char *name, const void *val)
     return 0;
 }
 
-//cheat engine export symbol addition
+//sheng engine export symbol addition
 LIBTCCAPI void tcc_get_symbols(TCCState *s, void* userdata, void(*callback)(void* userdata, Elf64_Addr address, char *name))
 {
-	//Cheat Engine export writer addition start
+	//Sheng Engine export writer addition start
 	ElfW(Sym) *sym;
 
 	if (callback)
@@ -1347,7 +1347,7 @@ LIBTCCAPI void tcc_get_symbols(TCCState *s, void* userdata, void(*callback)(void
 		}
 	}
 }
-//cheat engine export symbol addition
+//sheng engine export symbol addition
 
 LIBTCCAPI void tcc_set_lib_path(TCCState *s, const char *path)
 {

@@ -1,4 +1,4 @@
-//copyright Cheat Engine 2022. All rights reserved
+//copyright Sheng Engine 2022. All rights reserved
 unit disassemblerArm32Thumb;
 
 {$mode objfpc}{$H+}

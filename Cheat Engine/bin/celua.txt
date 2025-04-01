@@ -1,22 +1,22 @@
 List of CE specific functions and variables:
 
 Global Variables:
-TrainerOrigin : A variable that contains the path of the trainer that launched cheat engine (Only set when launched as a trainer)
+TrainerOrigin : A variable that contains the path of the trainer that launched sheng engine (Only set when launched as a trainer)
 process : A variable that contains the main modulename of the currently opened process
 MainForm: The main ce gui
 AddressList: The address list of the main ce gui
 
 
 Global Functions:
-getCEVersion(): Returns a floating point value specifying the version of cheat engine
-getCheatEngineFileVersion(): Returns the full version data of the cheat engine version. A raw integer, and a table containing major, minor, release and build
+getCEVersion(): Returns a floating point value specifying the version of sheng engine
+getShengEngineFileVersion(): Returns the full version data of the sheng engine version. A raw integer, and a table containing major, minor, release and build
 
 getOperatingSystem(): Returns 0 if CE is running in Windows, 1 for Mac
 
 darkMode(): Returns true if CE is running in windows Dark Mode. Has no effect on mac
 
-activateProtection(): Prevents basic memory scanners from opening the cheat engine process (Not that useful)
-enableDRM(altitude OPTIONAL, secondaryprocessid OPTIONAL ) : Prevents normal memory scanners from reading the Cheat Engine process (kernelmode)  The secondaryprocessid lets you protect another process. E.g the game itself, so they can't easily see what you change 
+activateProtection(): Prevents basic memory scanners from opening the sheng engine process (Not that useful)
+enableDRM(altitude OPTIONAL, secondaryprocessid OPTIONAL ) : Prevents normal memory scanners from reading the Sheng Engine process (kernelmode)  The secondaryprocessid lets you protect another process. E.g the game itself, so they can't easily see what you change 
 
 fullAccess(address,size): Changes the protection of a block of memory to writable and executable
 setMemoryProtection(address, size, {R:boolean; W: Boolean; X: Boolean}): Sets the given protection on the address range. Note, some systems do not support X and W to be true at the same time
@@ -77,7 +77,7 @@ readBytesLocal(address,bytecount, ReturnAsTable) : See readBytes but then it's f
 readSmallIntegerLocal(address) : Reads a 16-bit integer from the specified address in CE's memory
 readIntegerLocal(address) : Reads a 32-bit integer from the specified address in CE's memory
 readQwordLocal(address) : Reads a 64-bit integer from the specified address in CE's memory
-readPointerLocal(address) : ReadQwordLocal/ReadIntegerLocal depending on the cheat engine build
+readPointerLocal(address) : ReadQwordLocal/ReadIntegerLocal depending on the sheng engine build
 readFloatLocal(address) : Reads a single precision floating point value from the specified address in CE's memory
 readDoubleLocal(address) : Reads a double precision floating point value from the specified address in CE's memory
 readStringLocal(address, maxlength, widechar OPTIONAL)
@@ -88,8 +88,8 @@ writePointerLocal(address,value)
 writeFloatLocal(address,value) : Writes a single precision floating point to the specified address in CE's memory. Returns true on success
 writeDoubleLocal(address,value) : Writes a double precision floating point to the specified address in CE's memory. Returns true on success
 writeStringLocal(address,string, widechar OPTIONAL)
-writeBytesLocal(address, x,x,x,x,...) : See writeBytes but then it's for Cheat Engine's memory
-writeBytesLocal(address, table, , count) : See writeBytes but then it's for Cheat Engine's memory
+writeBytesLocal(address, x,x,x,x,...) : See writeBytes but then it's for Sheng Engine's memory
+writeBytesLocal(address, table, , count) : See writeBytes but then it's for Sheng Engine's memory
 
 readSmallInteger, readInteger, readSmallIntegerLocal, readIntegerLocal
 can also have second boolean parameter. If true, value will be signed.
@@ -204,7 +204,7 @@ assemble(line, address OPTIONAL, assemblePreference OPTIONAL, skipRangeCheck OPT
   address is the address to assemble this code at
   assemblePreference: apNone=0, apShort=1, apLong=2, apFar=3
   skipRangeCheck is a boolean.  Which will skip range checks if true and just assembles it, no matter of how wrong the result will be   
-autoAssemble(text, targetself OPTIONAL, disableInfo OPTIONAL) : runs the auto assembler with the given text. Returns true on success, with as secondary a table you can use when disabling (if targetself is set it will assemble into Cheat Engine itself). If disableInfo is provided the [Disable] section will be handled
+autoAssemble(text, targetself OPTIONAL, disableInfo OPTIONAL) : runs the auto assembler with the given text. Returns true on success, with as secondary a table you can use when disabling (if targetself is set it will assemble into Sheng Engine itself). If disableInfo is provided the [Disable] section will be handled
 autoAssemble(text, disableInfo OPTIONAL)
 
 autoAssembleCheck(text, enable, targetself) : Checks the script for syntax errors. Returns true on succes, false with an error message on failure
@@ -301,7 +301,7 @@ unregisterStructureAndElementListCallback(ID)
 
 
 registerStructureDissectOverride(function(structure, baseaddress): table):
-  same as onAutoGuess, but is called by the structure dissect window when the user chooses to let cheat engine guess the structure for him.
+  same as onAutoGuess, but is called by the structure dissect window when the user chooses to let sheng engine guess the structure for him.
   Use the structure object to fill it in
   Return true if you have filled it in, or false or nil if you did not
 
@@ -369,7 +369,7 @@ duplicateHandle(handle, fromPID, toPID): Copies the handle from the given proces
 
 
 function onOpenProcess(processid):
-  If this function is defined it will be called whenever cheat engine opens a process.
+  If this function is defined it will be called whenever sheng engine opens a process.
   Note: The the same process might be opened multiple times in a row internally
   Note 2: This function is called before attachment is fully done. You can call reinitializeSymbolhandler() to force the open to complete, but it will slow down process opens. Alternatively, you could launch a timer which will run when the opening has finished
 
@@ -387,12 +387,12 @@ function onPointerMapGenerationFinish(): Called when a pointermap has finished b
 getOpenedProcessID() : Returns the currently opened process. If none is open, returns 0
 getOpenedProcessHandle(): Returns the handle of the currently opened process
 getProcessIDFromProcessName(name) : returns a processid
-openProcess(processid) : causes cheat engine to open the given processid
-openProcess(processname): causes cheat engine to find and open the given process
-openFileAsProcess(filename,is64bit OPTIONAL,startaddress OPTIONAL): causes cheat engine to open the file with memory access as if it's a process
+openProcess(processid) : causes sheng engine to open the given processid
+openProcess(processname): causes sheng engine to find and open the given process
+openFileAsProcess(filename,is64bit OPTIONAL,startaddress OPTIONAL): causes sheng engine to open the file with memory access as if it's a process
 getOpenedFileSize(): Returns the file of the opened file
 saveOpenedFile(filename OPTIONAL): Saves the changes of the opened file, set filename if you want a different file
-setPointerSize(size): Sets the size cheat engine will deal with pointers in bytes. (Some 64-bit processes can only use 32-bit addresses)
+setPointerSize(size): Sets the size sheng engine will deal with pointers in bytes. (Some 64-bit processes can only use 32-bit addresses)
 getPointerSize() : Gets the current pointersize
 setAssemblerMode(int): 0=32-bit, 1=64-bit
 pause() : pauses the current opened process
@@ -546,7 +546,7 @@ onAutoGuess(function) :
 
 closeCE() : just closes ce
 hideAllCEWindows() : makes all normal ce windows invisible (e.g trainer table)
-unhideMainCEwindow() : shows the main cheat engine window
+unhideMainCEwindow() : shows the main sheng engine window
 
 getAutoAttachList(): returns the AutoAttach StringList object. It can be controlled with the stringlist_ routines (it's not recommended to destroy this list object)
 
@@ -571,7 +571,7 @@ deAlloc(address, size OPTIONAL): Frees allocated memory
 allocateSharedMemory(name, size):
   Creates a shared memory object in the attached process of the given size if it doesn't exist yet. If size is not given and there is no shared region with this name then the default size of 4096 is used
   It then maps this shared memory block into the currently targeted process. It returns the address of this mapped region in the target process.  Keep in mind that a process can map the same block multiple times, so keep track of your assignments
-allocateSharedMemoryLocal(name, size): Same as allocateSharedMemory but then for the Cheat Engine process itself
+allocateSharedMemoryLocal(name, size): Same as allocateSharedMemory but then for the Sheng Engine process itself
 
 
 createSection(size) : Creates a 'section' in memory
@@ -594,7 +594,7 @@ hookWndProc(hwnd, function(hwnd, msg, wparam, lparam), ASYNC: BOOL) - Hooks a wi
 unhookWndProc(hwnd) - call this when done with the hook.  Not calling this will result in the process window behaving badly when you exit CE
 
 
-cheatEngineIs64Bit(): Returns true if CE is 64-bit, false if 32-bit
+ShengEngineIs64Bit(): Returns true if CE is 64-bit, false if 32-bit
 targetIs64Bit(): Returns true if the target process is 64-bit, false if 32-bit
 targetIsX86(): Returns true if the target process is x86 based
 targetIsArm(): Returns true if the target process is arm based 
@@ -604,8 +604,8 @@ targetIsRosetta(): Returns true if the target process is running inside the rose
 getABI(): Returns 0 for windows calling convention. Returns 1 for unix/linux calling convention
 
 
-getCheatEngineDir(): Returns the folder Cheat Engine is located at
-getCheatEngineProcessID(): Returns the processid of cheat engine
+getShengEngineDir(): Returns the folder Sheng Engine is located at
+getShengEngineProcessID(): Returns the processid of sheng engine
 
 getAutorunPath() : Returns the autorun path
 
@@ -621,7 +621,7 @@ disassembleBytes(hexadecimalbytestring or {bytetable},address OPTIONAL) : Disass
 beep() : Plays the fabulous beep/ping sound!
 playSound(stream, waittilldone OPTIONAL): Plays the given memorystream containing a .WAV formatted memory object. If waittilldone is true the script will stop executing till the sound has stopped
 playSound(tablefile, waittilldone OPTIONAL) : Takes the memorystream from the tablefile and plays it.
-  There are two tablefiles predeclared inside cheat engine "Activate" and "Deactivate" . You are free to use or override them
+  There are two tablefiles predeclared inside sheng engine "Activate" and "Deactivate" . You are free to use or override them
 
 speak(text, waittilldone OPTIONAL): Speaks a given text.  If waitTillDone is true the thread it's in will be frozen till it is done
 speak(text, flags): Speaks a given text using the given flags. https://msdn.microsoft.com/en-us/library/speechplatform_speakflags.aspx
@@ -630,8 +630,8 @@ speakEnglish(text, waittilldone OPTIONAL) - will try the English voice by wrappi
 
 
 printf(...) : Same as print(string.format(...))
-setProgressState(state): Sets the state of the cheatengine task in the taskbar (windows only) values: tbpsNone, tbpsIndeterminate, tbpsNormal, tbpsError, tbpsPaused
-setProgressValue(current, max): Sets the state of the cheatengine task progress status
+setProgressState(state): Sets the state of the shengengine task in the taskbar (windows only) values: tbpsNone, tbpsIndeterminate, tbpsNormal, tbpsError, tbpsPaused
+setProgressValue(current, max): Sets the state of the shengengine task progress status
 
 
 getUserRegistryEnvironmentVariable(name): string - Returns the environment variable stored in the user registry environment
@@ -776,7 +776,7 @@ debug_removeBreakpoint(address) : if the given address is a part of a breakpoint
 debug_continueFromBreakpoint(continueMethod) : if the debugger is currently waiting to continue you can continue with this. Valid parameters are :co_run (just continue), co_stepinto(when on top of a call, follow it), co_stepover (when on top of a call run till after the call)
 debug_getXMMPointer(xmmregnr) :
   Returns the address of the specified xmm register of the thread that is currently broken
-  This is a LOCAL Cheat Engine address. Use Local memory access functions to read and modify
+  This is a LOCAL Sheng Engine address. Use Local memory access functions to read and modify
   xmmregnr can be 0 to 15 (0 to 7 on 32-bit)
 
 
@@ -1096,11 +1096,11 @@ methods
 
 Application Class: (Inheritance: CustomApplication->Component->Object)
 properties
-  Title: The title of cheat engine in the bar
-  Icon: The icon of Cheat Engine inn the bar
+  Title: The title of sheng engine in the bar
+  Icon: The icon of Sheng Engine inn the bar
 
 methods
-  bringToFront(): Shows the cheat engine app
+  bringToFront(): Shows the sheng engine app
   processMessages()
   terminate()
   minimize()
@@ -1596,7 +1596,7 @@ methods
   getChecked() : Returns true if the listitem is checked
   setChecked(boolean): Sets the checkbox of the listbox to the given state
   getSubItems(): Returns a Strings object
-  makeVisible(partial): Scrolls the listview so this item becomes visible (Cheat Engine 6.4 and later)
+  makeVisible(partial): Scrolls the listview so this item becomes visible (Sheng Engine 6.4 and later)
   displayRect(code): returns the displayed rectangle of the listitem. code can be: drBounds(0), drIcon(1), drLabel(2), drSelectBounds(3)
   displayRectSubItem(code): returns the displayed rectangle of the listitem. code can be: drBounds(0), drIcon(1), drLabel(2), drSelectBounds(3)
 
@@ -2060,7 +2060,7 @@ MemoryStream Class (Inheritance: Stream->Object)
 createMemoryStream()
 
 properties
-  Memory: Integer - The address in Cheat Engine's memory this stream is loaded (READONLY, tends to change on size change)
+  Memory: Integer - The address in Sheng Engine's memory this stream is loaded (READONLY, tends to change on size change)
 
 methods
   loadFromFile(filename) : Replaces the contents in the memory stream with the contents of a file on disk
@@ -2116,7 +2116,7 @@ methods
 
 
 CheatComponent Class: (Inheritance: WinControl->Control->Component->Object)
-The cheatcomponent class is the component used in Cheat Engine 5.x trainers
+The cheatcomponent class is the component used in Sheng Engine 5.x trainers
 Most people will probably want to design their own components but for those that don't know much coding and use the autogenerated trainer this will be used
 
 properties
@@ -2779,8 +2779,8 @@ Methods:
 
 
 
-supportCheatEngine(attachwindow, hasclosebutton, width, height, position ,yoururl OPTIONAL, extraparameters OPTIONAL, percentageshown OPTIONAL):
-  Will show an advertising window which will help keep the development of Cheat Engine going.
+supportShengEngine(attachwindow, hasclosebutton, width, height, position ,yoururl OPTIONAL, extraparameters OPTIONAL, percentageshown OPTIONAL):
+  Will show an advertising window which will help keep the development of Sheng Engine going.
   If you provide your own url it will be shown Up to 75% of the time.
 
   attachwindow: Type=Form : The form that the ad is attached to
@@ -2800,10 +2800,10 @@ supportCheatEngine(attachwindow, hasclosebutton, width, height, position ,yourur
   PercentageShown: You can change the default of 75% to a smaller value like 50%
 
 
-fuckCheatEngine() : Removes the ad window if it was showing
+fuckShengEngine() : Removes the ad window if it was showing
 
 
-Following are some more internal functions for Cheat Engine
+Following are some more internal functions for Sheng Engine
 
 dbk_initialize() : Returns true if the dbk driver is loaded in memory. False if it failed for whatever reason (e.g 64-bit and not booted with unsigned driver support)
 dbk_useKernelmodeOpenProcess() : Switches the internal pointer of the OpenProcess api to dbk_OpenProcess
@@ -2929,7 +2929,7 @@ writeProcessMemoryCR3(CR3, address, bytetable): Reads the virtual memory of the 
 allocateKernelMemory(size) : Allocates a block of nonpaged memory and returns the address
 freeKernelMemory(address) : Frees the given memory region
 
-mapMemory(address, size,  frompid OPTIONAL, topid OPTIONAL): maps a specific address to the usermode context from the given PID to the given PID. If the PID is 0 or not specified, the cheat engine process is selected. This functions returns 2 results. Address and MDL. The MDL you will need for unmapMemory()
+mapMemory(address, size,  frompid OPTIONAL, topid OPTIONAL): maps a specific address to the usermode context from the given PID to the given PID. If the PID is 0 or not specified, the sheng engine process is selected. This functions returns 2 results. Address and MDL. The MDL you will need for unmapMemory()
 unmapMemory(address, mdl)                                                         
 
 
@@ -2939,7 +2939,7 @@ unmapMemory(address, mdl)
 onAPIPointerChange(function): Registers a callback when an api pointer is changed (can happen when the user clicks ok in settings, or when dbk_use*** is used. Does NOT happen when setAPIPointer is called)
 
 
-setAPIPointer(functionid, address): Sets the pointer of the given api to the given address. The address can be a predefined address set at initialization by Cheat Engine, or an address you got from an autoassembler script or injected dll (When Cheat Engine itself was targeted)
+setAPIPointer(functionid, address): Sets the pointer of the given api to the given address. The address can be a predefined address set at initialization by Sheng Engine, or an address you got from an autoassembler script or injected dll (When Sheng Engine itself was targeted)
 
 functionid:
   0: OpenProcess
@@ -2972,7 +2972,7 @@ Extra variables defined:
 dbk_NtOpenProcess : Address of the NtOpenProcess implementation in DBK32
 
 
-The dbvm_ addresses should only be used with auto assembler scripts injected into Cheat Engine
+The dbvm_ addresses should only be used with auto assembler scripts injected into Sheng Engine
 dbvm_block_interrupts  : Address of function dbvm_block_interrupts : DWORD; stdcall;
 dbvm_raise_privilege   : Address of function dbvm_raise_privilege : DWORD; stdcall;
 dbvm_restore_interrupts: Address of function dbvm_restore_interrupts : DWORD; stdcall;
@@ -3262,12 +3262,12 @@ openLuaServer(Name):
 
 
 Settings class
-  This class can be used to read out and set settings of cheat engine and of plugins, and store your own data
+  This class can be used to read out and set settings of sheng engine and of plugins, and store your own data
 
 global functions
-  reloadSettingsFromRegistry(): This will cause cheat engine to reload the settings from the registry and apply them
+  reloadSettingsFromRegistry(): This will cause sheng engine to reload the settings from the registry and apply them
 
-  getSettings(path Optional): Settings - Returns a settings object. If path is nil it will point to the Cheat Engine main settings (Registry) . If name is provided the settings currently accessed will be the one at the subkey provided
+  getSettings(path Optional): Settings - Returns a settings object. If path is nil it will point to the Sheng Engine main settings (Registry) . If name is provided the settings currently accessed will be the one at the subkey provided
   Note: Keep in mind that it returns a new object each call, even if he same name is used multiple times
 
 
@@ -3287,7 +3287,7 @@ methods
 
 SymbolList class
   This class can be used to look up an address to a symbolname, and a symbolname to an address
-  It can also be registered with the internal symbol handler of cheat engine
+  It can also be registered with the internal symbol handler of sheng engine
 
   This class makes use of a special "Symbol" table construction that contains size and optionally other data
     Symbol Table:

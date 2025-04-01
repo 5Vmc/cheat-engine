@@ -453,7 +453,7 @@ var
   s: string;
   i,j: integer;
 begin
-  s:=cheatenginedir+'commonProcessesList.txt';
+  s:=shengenginedir+'commonProcessesList.txt';
   if FileExists(s) then //if the list exists
   begin
     if commonProcessesList=nil then commonProcessesList:=tstringlist.create;
@@ -619,7 +619,7 @@ begin
 
   reg:=tregistry.create;
   try
-    if reg.OpenKey('\Software\'+strCheatEngine+'\Process Window\Font'+darkmodestring,false) then
+    if reg.OpenKey('\Software\'+strShengEngine+'\Process Window\Font'+darkmodestring,false) then
       LoadFontFromRegistry(processlist.Font, reg)
     else
       processlist.font.color:=colorset.FontColor;
@@ -670,7 +670,7 @@ begin
 
     reg:=tregistry.create;
     try
-      if reg.OpenKey('\Software\'+strCheatEngine+'\Process Window\Font'+darkmodestring,true) then
+      if reg.OpenKey('\Software\'+strShengEngine+'\Process Window\Font'+darkmodestring,true) then
         SaveFontToRegistry(FontDialog1.Font, reg);
 
 

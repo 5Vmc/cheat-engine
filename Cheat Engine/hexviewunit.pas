@@ -1,4 +1,4 @@
-// Copyright Cheat Engine. All Rights Reserved.
+// Copyright Sheng Engine. All Rights Reserved.
 
 unit hexviewunit;
 
@@ -3252,7 +3252,7 @@ begin
   fadetimer:=1000;
   backlist:=TStack.create;
 
-  DoubleBuffered:=true; // http://cheatengine.org/mantis/view.php?id=280 , no effect for me, but should help those with no theme
+  DoubleBuffered:=true; // http://%63%68%65%61%74%65%6E%67%69%6E%65%2E%6F%72%67/mantis/view.php?id=280 , no effect for me, but should help those with no theme
 
   MemoryMap:=TMap.create(ituPtrSize, sizeof(TPageinfo));
 

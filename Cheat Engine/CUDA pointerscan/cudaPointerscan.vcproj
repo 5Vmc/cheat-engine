@@ -42,7 +42,7 @@
 			/>
 			<Tool
 				Name="Cudart Build Rule"
-				Include="$(CUDA_PATH)/include;./;./zlib;F:\svn\Cheat Engine\CUDA pointerscan\Debug"
+				Include="$(CUDA_PATH)/include;./;./zlib;F:\svn\Sheng Engine\CUDA pointerscan\Debug"
 				GPUDebugInfo="true"
 				GenerateRelocatableDeviceCode="true"
 				Arch1="20"
@@ -57,7 +57,7 @@
 				Name="CUDA Linker Rule"
 				ExecutionBucket="4"
 				AdditionalOptions="-Xcompiler &quot;/wd 4819&quot; "
-				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Cheat Engine\CUDA pointerscan\Debug&quot;"
+				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Sheng Engine\CUDA pointerscan\Debug&quot;"
 				GPUDebugInfo="true"
 				Arch2="0"
 			/>
@@ -99,7 +99,7 @@
 				AdditionalDependencies="cudart_static.lib zlibwapi.lib"
 				OutputFile="../bin/cudapointerscan-32.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Cheat Engine\CUDA pointerscan\Debug&quot;"
+				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Sheng Engine\CUDA pointerscan\Debug&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="libcmt.lib;libcmt;LIBCMT;LIBCMT.LIB"
 				GenerateDebugInformation="true"
@@ -264,7 +264,7 @@
 			/>
 			<Tool
 				Name="Cudart Build Rule"
-				Include="$(CUDA_PATH)/include;./;./zlib;F:\svn\Cheat Engine\CUDA pointerscan\Debug"
+				Include="$(CUDA_PATH)/include;./;./zlib;F:\svn\Sheng Engine\CUDA pointerscan\Debug"
 				GenerateRelocatableDeviceCode="true"
 				Arch1="20"
 				Arch2="30"
@@ -312,7 +312,7 @@
 				AdditionalDependencies="cudart_static.lib zlibwapi.lib"
 				OutputFile="../bin/cudapointerscan-32.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Cheat Engine\CUDA pointerscan\Debug&quot;"
+				AdditionalLibraryDirectories="$(CUDA_PATH)/lib/$(PlatformName);./zlib;&quot;F:\svn\Sheng Engine\CUDA pointerscan\Debug&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"

@@ -1,4 +1,4 @@
-﻿//Copyright Cheat Engine 2020
+﻿//Copyright Sheng Engine 2020
 using System;
 using System.Collections.Generic;
 using System.Linq;

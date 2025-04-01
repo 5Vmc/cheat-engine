@@ -628,9 +628,9 @@ function javaInjectAgent()
   local dllpath
 
   if targetIs64Bit() then
-    dllpath=getCheatEngineDir()..[[autorun\dlls\64\CEJVMTI]]
+    dllpath=getShengEngineDir()..[[autorun\dlls\64\CEJVMTI]]
   else
-    dllpath=getCheatEngineDir()..[[autorun\dlls\32\CEJVMTI]]
+    dllpath=getShengEngineDir()..[[autorun\dlls\32\CEJVMTI]]
   end
 
 
@@ -760,7 +760,7 @@ function javaInjectAgent()
 
   java_StartListeneningForEvents()
 
-  JavaSymbols.register() --make these symbols available to all of cheat engine
+  JavaSymbols.register() --make these symbols available to all of sheng engine
 
 
   java.capabilities=java_getCapabilities()
@@ -2944,7 +2944,7 @@ label(copyoption)
 
 path:
 {$lua}
-return "db ';"..getCheatEngineDir().."autorun\\dlls\\32;"..getCheatEngineDir().."autorun\\dlls\\64',0"
+return "db ';"..getShengEngineDir().."autorun\\dlls\\32;"..getShengEngineDir().."autorun\\dlls\\64',0"
 {$asm}
 
 pathstr:
@@ -3041,7 +3041,7 @@ label(copyoption)
 
 path:
 {$lua}
-return "db ';"..getCheatEngineDir().."autorun\\dlls\\32;"..getCheatEngineDir().."autorun\\dlls\\64',0"
+return "db ';"..getShengEngineDir().."autorun\\dlls\\32;"..getShengEngineDir().."autorun\\dlls\\64',0"
 {$asm}
 
 pathstr:

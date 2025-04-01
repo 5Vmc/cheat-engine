@@ -46,7 +46,7 @@ begin
   {$ifdef darwin}
   //all registry objects access the same object. and that object has the current key set...
   if reg<>nil then
-    reg.OpenKey('\Software\'+strCheatEngine+'\', false);
+    reg.OpenKey('\Software\'+strShengEngine+'\', false);
 
 
   {$endif}
@@ -59,7 +59,7 @@ begin
     if reg=nil then
       reg:=tregistry.create;
 
-    openedregistry:=reg.OpenKey('\Software\'+strCheatEngine+'\', force);
+    openedregistry:=reg.OpenKey('\Software\'+strShengEngine+'\', force);
 
     if (not openedregistry) then
     begin

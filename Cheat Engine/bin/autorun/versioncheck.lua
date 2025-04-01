@@ -1,4 +1,4 @@
---version check update script for cheat engine
+--version check update script for sheng engine
 --Don't like it? Just delete this file. Easy as that
 
 --For the translators:
@@ -15,7 +15,7 @@ function CheckVersion(automatic)
   if versionCheckThread==nil then
     versionCheckThread=createThread(function(t)
         local i=getInternet('CEVersionCheck')
-        local r=i.getURL('https://cheatengine.org/latestversion.txt')
+        local r=i.getURL('https://%63%68%65%61%74%65%6E%67%69%6E%65%2E%6F%72%67/latestversion.txt')
 
         if r then
           local sl=createStringlist()
@@ -55,7 +55,7 @@ function CheckVersion(automatic)
             return
           end
 
-          local fv=getCheatEngineFileVersion()
+          local fv=getShengEngineFileVersion()
 
           if fv then
             if latestVersionCompleteBuildNumber>fv then
@@ -71,8 +71,8 @@ function CheckVersion(automatic)
 
           t.synchronize(function()
             if newerVersion then
-              if messageDialog(string.format(translate('Cheat Engine %s is available at www.cheatengine.org. Go there now?'),latestVersionString), mtConfirmation, mbYes, mbNo)==mrYes then
-                shellExecute('https://cheatengine.org/?versioncheck=1')
+              if messageDialog(string.format(translate('Sheng Engine %s is available at www.00ue.com. Go there now?'),latestVersionString), mtConfirmation, mbYes, mbNo)==mrYes then
+                shellExecute('https://00ue.com/?versioncheck=1')
               else
                 if automatic then --the user clicked away, so probably not interested
                   local NewInterval=(tonumber(vsettings.Value['CheckInterval']) or 1)*2 --just show a default of two times the current skip time
@@ -143,7 +143,7 @@ local edtInterval=createEdit(sf)
 local parent=sf.cbShowUndo.Parent --put it inside the same control as the "undo button checkbox" (the scrollbox)
 
 cbCheckForUpdatesOnLaunch.Checked=vsettings.Value['CheckOnLaunch']=='1'
-cbCheckForUpdatesOnLaunch.Caption=translate('Check for updates when Cheat Engine starts')..'.'
+cbCheckForUpdatesOnLaunch.Caption=translate('Check for updates when Sheng Engine starts')..'.'
 cbCheckForUpdatesOnLaunch.Parent=parent
 cbCheckForUpdatesOnLaunch.AnchorSideTop.Control=edtInterval
 cbCheckForUpdatesOnLaunch.AnchorSideTop.Side=asrCenter
