@@ -15,7 +15,7 @@
 #endif
 
 int _fltused;
-
+#define ALLOC_TAG 'mytg'  // 自定义的内存分配标签
 
 typedef VOID F(UINT_PTR param);
 typedef F *PF;

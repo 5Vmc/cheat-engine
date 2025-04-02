@@ -45,14 +45,14 @@ BOOL NoExceptions_Enter()
 		{
 			//initialize the list
 			MaxCPUCount = (int)KeQueryActiveProcessorCount(NULL);
-			cpustate = ExAllocatePool(NonPagedPool, MaxCPUCount*sizeof(CPUSTATE));
+			cpustate = ExAllocatePool2(POOL_FLAG_PAGED, MaxCPUCount*sizeof(CPUSTATE),ALLOC_TAG);
 
 			if (cpustate)
 			{
 				RtlZeroMemory(cpustate, MaxCPUCount*sizeof(CPUSTATE));
 				for (i = 0; i < MaxCPUCount; i++)
 				{
-					cpustate[i].NoExceptionVectorList = ExAllocatePool(NonPagedPool, 256 * sizeof(INT_VECTOR));
+					cpustate[i].NoExceptionVectorList = ExAllocatePool2(POOL_FLAG_PAGED, 256 * sizeof(INT_VECTOR),ALLOC_TAG);
 					if (cpustate[i].NoExceptionVectorList)
 					{
 						RtlZeroMemory(cpustate[i].NoExceptionVectorList, 256 * sizeof(INT_VECTOR));						

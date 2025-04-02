@@ -218,11 +218,10 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 			ULONG ActualSize;
 
 			//DbgPrint("Opened the key\n");
-
-			BufDriverString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
-			BufDeviceString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
-			BufProcessEventString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
-			BufThreadEventString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
+			BufDriverString = ExAllocatePool2(POOL_FLAG_PAGED,sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100,ALLOC_TAG);
+			BufDeviceString = ExAllocatePool2(POOL_FLAG_PAGED,sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100,ALLOC_TAG);
+			BufProcessEventString = ExAllocatePool2(POOL_FLAG_PAGED,sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100,ALLOC_TAG);
+			BufThreadEventString = ExAllocatePool2(POOL_FLAG_PAGED,sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100,ALLOC_TAG);
 
 			bufA = BufDriverString;
 			bufB = BufDeviceString;

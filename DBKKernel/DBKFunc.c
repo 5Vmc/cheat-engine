@@ -21,46 +21,45 @@ void forEachCpuPassive(PF f, UINT_PTR param)
 calls a specific function for each cpu that runs in passive mode
 */
 {
-	CCHAR cpunr;
-	KAFFINITY cpus, original;
-	ULONG cpucount;
+    CCHAR cpunr;
+    KAFFINITY cpus, original;
+    ULONG cpucount;
 
-	
-	//KeIpiGenericCall is not present in xp
-	
-	//count cpus first KeQueryActiveProcessorCount is not present in xp)
-	cpucount=0;
-	cpus=KeQueryActiveProcessors();
-	original=cpus;
-	while (cpus)
-	{
-		if (cpus % 2)
-			cpucount++;
 
-		cpus=cpus / 2;		
-	}
+    //KeIpiGenericCall is not present in xp
 
-	cpus=KeQueryActiveProcessors();
-	cpunr=0;
-	while (cpus)
-	{
-		if (cpus % 2)
-		{
-			//bit is set
+    //count cpus first KeQueryActiveProcessorCount is not present in xp)
+    cpucount = 0;
+    cpus = KeQueryActiveProcessors();
+    original = cpus;
+    while (cpus)
+    {
+        if (cpus % 2)
+            cpucount++;
+
+        cpus = cpus / 2;
+    }
+
+    cpus = KeQueryActiveProcessors();
+    cpunr = 0;
+    while (cpus)
+    {
+        if (cpus % 2)
+        {
+            //bit is set
 #if (NTDDI_VERSION >= NTDDI_VISTA)
-			KAFFINITY oldaffinity;
+            KAFFINITY oldaffinity;
 #endif
-			KAFFINITY newaffinity;
+            KAFFINITY newaffinity;
 
 
-			
-			//DbgPrint("Calling passive function for cpunr %d\n", cpunr);
-			//set affinity
+            //DbgPrint("Calling passive function for cpunr %d\n", cpunr);
+            //set affinity
 
-			newaffinity=(KAFFINITY)(1 << cpunr);
+            newaffinity = (KAFFINITY)(1 << cpunr);
 
 #if (NTDDI_VERSION >= NTDDI_VISTA)
-			oldaffinity=KeSetSystemAffinityThreadEx(newaffinity);
+            oldaffinity = KeSetSystemAffinityThreadEx(newaffinity);
 #else
 			//XP and earlier (this routine is not called often, only when the user asks explicitly
 			{
@@ -73,330 +72,318 @@ calls a specific function for each cpu that runs in passive mode
 #endif
 
 
-
-			//call function
-			f(param);
+            //call function
+            f(param);
 
 #if (NTDDI_VERSION >= NTDDI_VISTA)
-			KeRevertToUserAffinityThreadEx(oldaffinity);
+            KeRevertToUserAffinityThreadEx(oldaffinity);
 #endif
+        }
 
-		}
-
-		cpus=cpus / 2;
-		cpunr++;
-	}
+        cpus = cpus / 2;
+        cpunr++;
+    }
 
 #if (NTDDI_VERSION < NTDDI_VISTA)
 	KeSetSystemAffinityThread(original);
 #endif
 }
 
-void forOneCpu(CCHAR cpunr, PKDEFERRED_ROUTINE dpcfunction, PVOID DeferredContext, PVOID  SystemArgument1, PVOID  SystemArgument2, OPTIONAL PPREDPC_CALLBACK preDPCCallback)
+void forOneCpu(CCHAR cpunr, PKDEFERRED_ROUTINE dpcfunction, PVOID DeferredContext, PVOID SystemArgument1,
+               PVOID SystemArgument2, OPTIONAL PPREDPC_CALLBACK preDPCCallback)
 {
-	PKDPC dpc;
+    PKDPC dpc;
 
-	if (preDPCCallback) //if preDPCCallback is set call it which may change the system arguments
-		preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
-	
+    if (preDPCCallback) //if preDPCCallback is set call it which may change the system arguments
+        preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
 
-	dpc = ExAllocatePool(NonPagedPool, sizeof(KDPC));
-	KeInitializeDpc(dpc, dpcfunction, DeferredContext);
-	KeSetTargetProcessorDpc(dpc, cpunr);
-	KeInsertQueueDpc(dpc, SystemArgument1, SystemArgument2);
-	KeFlushQueuedDpcs();
 
-	ExFreePool(dpc);
+    dpc = ExAllocatePool2(POOL_FLAG_PAGED, sizeof(KDPC),ALLOC_TAG);
+    KeInitializeDpc(dpc, dpcfunction, DeferredContext);
+    KeSetTargetProcessorDpc(dpc, cpunr);
+    KeInsertQueueDpc(dpc, SystemArgument1, SystemArgument2);
+    KeFlushQueuedDpcs();
+
+    ExFreePool(dpc);
 }
 
-void forEachCpu(PKDEFERRED_ROUTINE dpcfunction,  PVOID DeferredContext, PVOID  SystemArgument1, PVOID  SystemArgument2, OPTIONAL PPREDPC_CALLBACK preDPCCallback)
+void forEachCpu(PKDEFERRED_ROUTINE dpcfunction, PVOID DeferredContext, PVOID SystemArgument1, PVOID SystemArgument2,
+                OPTIONAL PPREDPC_CALLBACK preDPCCallback)
 /*
 calls a specified dpcfunction for each cpu on the system
 */
 {
-	CCHAR cpunr;
-	KAFFINITY cpus;
-	ULONG cpucount;
-	PKDPC dpc;
-	int dpcnr;
+    CCHAR cpunr;
+    KAFFINITY cpus;
+    ULONG cpucount;
+    PKDPC dpc;
+    int dpcnr;
 
 
-	//KeIpiGenericCall is not present in xp
-	
-	//count cpus first KeQueryActiveProcessorCount is not present in xp)
-	cpucount=0;
-	cpus=KeQueryActiveProcessors();
-	while (cpus)
-	{
-		if (cpus % 2)
-			cpucount++;
+    //KeIpiGenericCall is not present in xp
 
-		cpus=cpus / 2;		
-	}
+    //count cpus first KeQueryActiveProcessorCount is not present in xp)
+    cpucount = 0;
+    cpus = KeQueryActiveProcessors();
+    while (cpus)
+    {
+        if (cpus % 2)
+            cpucount++;
 
-	dpc=ExAllocatePool(NonPagedPool, sizeof(KDPC)*cpucount);
+        cpus = cpus / 2;
+    }
 
-		
-
-	cpus=KeQueryActiveProcessors();
-	cpunr=0;
-	dpcnr=0;
-	while (cpus)
-	{
-		if (cpus % 2)
-		{
-			//bit is set
-			
-			//DbgPrint("Calling dpc routine for cpunr %d (dpc=%p)\n", cpunr, &dpc[dpcnr]);
-
-			if (preDPCCallback)
-				preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
-
-			KeInitializeDpc(&dpc[dpcnr], dpcfunction, DeferredContext);
-			KeSetTargetProcessorDpc (&dpc[dpcnr], cpunr);
-			KeInsertQueueDpc(&dpc[dpcnr], SystemArgument1, SystemArgument2);
-			KeFlushQueuedDpcs();
-			dpcnr++;
-		}
-
-		cpus=cpus / 2;
-		cpunr++;
-	}
+    dpc = ExAllocatePool2(POOL_FLAG_PAGED, sizeof(KDPC) * cpucount,ALLOC_TAG);
 
 
-	ExFreePool(dpc);
+    cpus = KeQueryActiveProcessors();
+    cpunr = 0;
+    dpcnr = 0;
+    while (cpus)
+    {
+        if (cpus % 2)
+        {
+            //bit is set
+
+            //DbgPrint("Calling dpc routine for cpunr %d (dpc=%p)\n", cpunr, &dpc[dpcnr]);
+
+            if (preDPCCallback)
+                preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
+
+            KeInitializeDpc(&dpc[dpcnr], dpcfunction, DeferredContext);
+            KeSetTargetProcessorDpc(&dpc[dpcnr], cpunr);
+            KeInsertQueueDpc(&dpc[dpcnr], SystemArgument1, SystemArgument2);
+            KeFlushQueuedDpcs();
+            dpcnr++;
+        }
+
+        cpus = cpus / 2;
+        cpunr++;
+    }
+
+
+    ExFreePool(dpc);
 }
 
 
-void forEachCpuAsync(PKDEFERRED_ROUTINE dpcfunction, PVOID DeferredContext, PVOID  SystemArgument1, PVOID  SystemArgument2, OPTIONAL PPREDPC_CALLBACK preDPCCallback)
+void forEachCpuAsync(PKDEFERRED_ROUTINE dpcfunction, PVOID DeferredContext, PVOID SystemArgument1,
+                     PVOID SystemArgument2, OPTIONAL PPREDPC_CALLBACK preDPCCallback)
 /*
 calls a specified dpcfunction for each cpu on the system
 */
 {
-	CCHAR cpunr;
-	KAFFINITY cpus;
-	ULONG cpucount;
-	PKDPC dpc;
-	int dpcnr;
+    CCHAR cpunr;
+    KAFFINITY cpus;
+    ULONG cpucount;
+    PKDPC dpc;
+    int dpcnr;
 
 
+    //KeIpiGenericCall is not present in xp
 
-	//KeIpiGenericCall is not present in xp
+    //count cpus first KeQueryActiveProcessorCount is not present in xp)
+    cpucount = 0;
+    cpus = KeQueryActiveProcessors();
+    while (cpus)
+    {
+        if (cpus % 2)
+            cpucount++;
 
-	//count cpus first KeQueryActiveProcessorCount is not present in xp)
-	cpucount = 0;
-	cpus = KeQueryActiveProcessors();
-	while (cpus)
-	{
-		if (cpus % 2)
-			cpucount++;
+        cpus = cpus / 2;
+    }
 
-		cpus = cpus / 2;
-	}
+    dpc = ExAllocatePool2(POOL_FLAG_PAGED, sizeof(KDPC) * cpucount, ALLOC_TAG);
 
-	dpc = ExAllocatePool(NonPagedPool, sizeof(KDPC)*cpucount);
+    cpus = KeQueryActiveProcessors();
+    cpunr = 0;
+    dpcnr = 0;
+    while (cpus)
+    {
+        if (cpus % 2)
+        {
+            //bit is set
 
-	cpus = KeQueryActiveProcessors();
-	cpunr = 0;
-	dpcnr = 0;
-	while (cpus)
-	{
-		if (cpus % 2)
-		{
-			//bit is set
+            //DbgPrint("Calling dpc routine for cpunr %d\n", cpunr);
+            if (preDPCCallback) //if preDPCCallback is set call it which may change the system arguments
+                preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
 
-			//DbgPrint("Calling dpc routine for cpunr %d\n", cpunr);
-			if (preDPCCallback) //if preDPCCallback is set call it which may change the system arguments
-				preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
+            KeInitializeDpc(&dpc[dpcnr], dpcfunction, DeferredContext);
+            KeSetTargetProcessorDpc(&dpc[dpcnr], cpunr);
+            KeInsertQueueDpc(&dpc[dpcnr], SystemArgument1, SystemArgument2);
+            dpcnr++;
+        }
 
-			KeInitializeDpc(&dpc[dpcnr], dpcfunction, DeferredContext);
-			KeSetTargetProcessorDpc(&dpc[dpcnr], cpunr);
-			KeInsertQueueDpc(&dpc[dpcnr], SystemArgument1, SystemArgument2);			
-			dpcnr++;
-		}
+        cpus = cpus / 2;
+        cpunr++;
+    }
 
-		cpus = cpus / 2;
-		cpunr++;
-	}
-
-	KeFlushQueuedDpcs();
+    KeFlushQueuedDpcs();
 
 
-	ExFreePool(dpc);
+    ExFreePool(dpc);
 }
-
 
 
 //own critical section implementation for use when the os is pretty much useless (dbvm tech)
-void spinlock(volatile LONG *lockvar)
+void spinlock(volatile LONG* lockvar)
 {
-	while (1)
-	{
+    while (1)
+    {
+        //it was 0, let's see if we can set it to 1
+        //race who can set it to 1:
+        if (_InterlockedExchange((volatile LONG*)lockvar, 1) == 0)
+            return; //lock aquired, else continue loop
 
-		//it was 0, let's see if we can set it to 1
-		//race who can set it to 1:
-		if (_InterlockedExchange((volatile LONG *)lockvar, 1)==0)
-			return; //lock aquired, else continue loop
-
-		_mm_pause();
-
-	}
-
+        _mm_pause();
+    }
 }
 
 void csEnter(PcriticalSection CS)
-{ 
-	EFLAGS oldstate=getEflags();
-	
-	if ((CS->locked) && (CS->cpunr==cpunr())) 
-	{
-	    //already locked but the locker is this cpu, so allow, just increase lockcount
-	    CS->lockcount++;
-	    return; 
-	} 
+{
+    EFLAGS oldstate = getEflags();
 
-	disableInterrupts(); //disable interrupts to prevent taskswitch in same cpu
-	
-	spinlock(&(CS->locked)); //sets CS->locked to 1
-  
-	//here so the lock is aquired and locked is 1
-	CS->lockcount=1;
-	CS->cpunr=cpunr();  
-	CS->oldIFstate=oldstate.IF;
+    if ((CS->locked) && (CS->cpunr == cpunr()))
+    {
+        //already locked but the locker is this cpu, so allow, just increase lockcount
+        CS->lockcount++;
+        return;
+    }
+
+    disableInterrupts(); //disable interrupts to prevent taskswitch in same cpu
+
+    spinlock(&(CS->locked)); //sets CS->locked to 1
+
+    //here so the lock is aquired and locked is 1
+    CS->lockcount = 1;
+    CS->cpunr = cpunr();
+    CS->oldIFstate = oldstate.IF;
 }
 
 void csLeave(PcriticalSection CS)
 {
-	if ((CS->locked) && (CS->cpunr==cpunr()))
-	{
-	    CS->lockcount--;
-	    if (CS->lockcount==0)
-	    {
-			//unlock    
-			if (CS->oldIFstate)
-				enableInterrupts();				
+    if ((CS->locked) && (CS->cpunr == cpunr()))
+    {
+        CS->lockcount--;
+        if (CS->lockcount == 0)
+        {
+            //unlock    
+            if (CS->oldIFstate)
+                enableInterrupts();
 
-			CS->cpunr=-1; //set to an cpunr
-			CS->locked=0;
-		} 
-	}
-	
+            CS->cpunr = -1; //set to an cpunr
+            CS->locked = 0;
+        }
+    }
 }
 
 
 int getCpuCount(void)
 {
-	KAFFINITY ap=KeQueryActiveProcessors();
-	int count=0;
-	while (ap>0)
-	{
-		if (ap % 2)
-			count++;
+    KAFFINITY ap = KeQueryActiveProcessors();
+    int count = 0;
+    while (ap > 0)
+    {
+        if (ap % 2)
+            count++;
 
-		ap=ap / 2;
-	}
-	return count;
+        ap = ap / 2;
+    }
+    return count;
 }
 
 int isPrefix(unsigned char b)
 {
-	switch (b)
-	{
-		case 0x26:
-		case 0x2e:
-		case 0x36:
-		case 0x3e:		
-		case 0x64:
-		case 0x65:
-		case 0x66:
-		case 0x67:
-		case 0xf0: //lock
-		case 0xf2: //repne
-		case 0xf3: //rep
-			return 1;
+    switch (b)
+    {
+    case 0x26:
+    case 0x2e:
+    case 0x36:
+    case 0x3e:
+    case 0x64:
+    case 0x65:
+    case 0x66:
+    case 0x67:
+    case 0xf0: //lock
+    case 0xf2: //repne
+    case 0xf3: //rep
+        return 1;
 
-		default:
-			return 0;
-
-	}
-
+    default:
+        return 0;
+    }
 }
 
 UINT64 getDR7(void)
 {
-	return __readdr(7);
-
+    return __readdr(7);
 }
 
 int cpunr(void)
-{	
-	DWORD x[4];
-	__cpuid(&x[0],1);
-	
-	return (x[1] >> 24)+1;
+{
+    DWORD x[4];
+    __cpuid(&x[0], 1);
 
+    return (x[1] >> 24) + 1;
 }
 
 EFLAGS getEflags(void)
 {
-	UINT64 x=__getcallerseflags();
-	PEFLAGS y = (PEFLAGS)&x;
-	return *y;
+    UINT64 x = __getcallerseflags();
+    PEFLAGS y = (PEFLAGS)&x;
+    return *y;
 }
 
 UINT64 readMSR(DWORD msr)
 {
-	return __readmsr(msr);
+    return __readmsr(msr);
 }
 
 void setCR0(UINT64 newcr0)
 {
-	__writecr0(newcr0);
+    __writecr0(newcr0);
 }
 
 UINT64 getCR0(void)
 {
-	return __readcr0();
+    return __readcr0();
 }
 
 UINT64 getCR2(void)
 {
-	return __readcr2();
+    return __readcr2();
 }
-
 
 
 void setCR3(UINT64 newCR3)
 {
-	__writecr3((UINT_PTR)newCR3);
+    __writecr3((UINT_PTR)newCR3);
 }
 
 UINT64 getCR3(void)
 {
-	return __readcr3();
+    return __readcr3();
 }
-
 
 
 void setCR4(UINT64 newcr4)
 {
-	__writecr4(newcr4);
+    __writecr4(newcr4);
 }
 
 UINT64 getCR4(void)
 {
-	return __readcr4();
+    return __readcr4();
 }
 
 void GetIDT(PIDT pIdt)
 {
-	__sidt(pIdt);
+    __sidt(pIdt);
 }
 
 void enableInterrupts(void)
 {
 #ifdef AMD64
-	_enable();
+    _enable();
 #else
 	__asm{sti};
 #endif
@@ -405,7 +392,7 @@ void enableInterrupts(void)
 void disableInterrupts(void)
 {
 #ifdef AMD64
-	_disable();
+    _disable();
 #else
 	__asm{cli};
 #endif
@@ -413,7 +400,7 @@ void disableInterrupts(void)
 
 UINT64 getTSC(void)
 {
-	return __rdtsc();
+    return __rdtsc();
 }
 
 #ifndef AMD64

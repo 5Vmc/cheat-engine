@@ -517,7 +517,7 @@ Runs at passive mode
 
 					//allocate 4 pages
 					DbgPrint("Allocating memory for the temp pagedir\n");
-					TemporaryPagingSetup = ExAllocatePool(PagedPool, 4 * 4096);
+					TemporaryPagingSetup = ExAllocatePool2(PagedPool, 4 * 4096,ALLOC_TAG);
 					if (TemporaryPagingSetup == NULL)
 					{
 						DbgPrint("TemporaryPagingSetup==NULL!!!\n");
@@ -622,7 +622,7 @@ Runs at passive mode
 
 
 
-					originalstate = ExAllocatePool(PagedPool, 4096);
+					originalstate = ExAllocatePool2(PagedPool, 4096,ALLOC_TAG);
 					originalstateMDL = IoAllocateMdl(originalstate, 4096, FALSE, FALSE, NULL);
 					MmProbeAndLockPages(originalstateMDL, KernelMode, IoReadAccess);
 
@@ -976,13 +976,13 @@ void vmxoffload_override(CCHAR cpunr, PKDEFERRED_ROUTINE Dpc, PVOID DeferredCont
 	if (mdl)
 	{
 		//convert the pfnlist to a list DBVM understands
-		PDBVMOffloadMemInfo mi = ExAllocatePool(NonPagedPool, sizeof(DBVMOffloadMemInfo));
+		PDBVMOffloadMemInfo mi = ExAllocatePool2(POOL_FLAG_PAGED, sizeof(DBVMOffloadMemInfo),ALLOC_TAG);
 		int i;
 		PFN_NUMBER *pfnlist;
 
 		DbgPrint("vmxoffload_override: mi=%p\n", mi);
 		
-		mi->List = ExAllocatePool(NonPagedPool, sizeof(UINT64) * 16);
+		mi->List = ExAllocatePool2(POOL_FLAG_PAGED, sizeof(UINT64) * 16,ALLOC_TAG);
 
 		DbgPrint("vmxoffload_override: mi->list=%p\n", mi->List);
 

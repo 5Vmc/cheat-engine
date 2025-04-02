@@ -195,7 +195,7 @@ NTSTATUS ultimap2_waitForData(ULONG timeout, PULTIMAP2DATAEVENT data)
 
 		int cpunr;
 
-		waitblock = ExAllocatePool(NonPagedPool, Ultimap2CpuCount*sizeof(KWAIT_BLOCK));
+		waitblock = ExAllocatePool2(POOL_FLAG_PAGED, Ultimap2CpuCount*sizeof(KWAIT_BLOCK),ALLOC_TAG);
 		wait.QuadPart = -10000LL * timeout;
 
 		if (timeout == 0xffffffff) //infinite wait
@@ -1000,7 +1000,7 @@ RTL_GENERIC_COMPARE_RESULTS NTAPI ToPACompare(__in struct _RTL_GENERIC_TABLE *Ta
 
 PVOID NTAPI ToPAAlloc(__in struct _RTL_GENERIC_TABLE *Table, __in CLONG ByteSize)
 {
-	return ExAllocatePool(NonPagedPool, ByteSize);
+	return ExAllocatePool2(POOL_FLAG_PAGED, ByteSize,ALLOC_TAG);
 }
 
 VOID NTAPI ToPADealloc(__in struct _RTL_GENERIC_TABLE *Table, __in __drv_freesMem(Mem) __post_invalid PVOID Buffer)
@@ -1151,7 +1151,7 @@ void* setupToPA(PToPA_ENTRY *Header, PVOID *OutputBuffer, PMDL *BufferMDL, PRTL_
 			return NULL;
 		}
 
-		r = ExAllocatePool(NonPagedPool, 4096);
+		r = ExAllocatePool2(POOL_FLAG_PAGED, 4096,ALLOC_TAG);
 		if (r == NULL)
 		{
 			MmFreeContiguousMemory(*OutputBuffer);
@@ -1166,14 +1166,14 @@ void* setupToPA(PToPA_ENTRY *Header, PVOID *OutputBuffer, PMDL *BufferMDL, PRTL_
 		//Not a single ToPA system
 		BlockSize = 4096;
 
-		*OutputBuffer = ExAllocatePool(NonPagedPool, _BufferSize);
+		*OutputBuffer = ExAllocatePool2(POOL_FLAG_PAGED, _BufferSize,ALLOC_TAG);
 		if (*OutputBuffer == NULL)
 		{
 			DbgPrint("setupToPA: Failure allocating output buffer");
 			return NULL;
 		}
 
-		r = ExAllocatePool(NonPagedPool, getToPAHeaderSize(_BufferSize));
+		r = ExAllocatePool2(POOL_FLAG_PAGED, getToPAHeaderSize(_BufferSize),ALLOC_TAG);
 		if (r == NULL)
 		{
 			ExFreePool(*OutputBuffer);
@@ -1186,7 +1186,7 @@ void* setupToPA(PToPA_ENTRY *Header, PVOID *OutputBuffer, PMDL *BufferMDL, PRTL_
 
 	*Header = r;
 
-	*gt=ExAllocatePool(NonPagedPool, sizeof(RTL_GENERIC_TABLE));
+	*gt=ExAllocatePool2(POOL_FLAG_PAGED, sizeof(RTL_GENERIC_TABLE),ALLOC_TAG);
 
 	if (*gt == NULL)
 	{
@@ -1374,7 +1374,7 @@ void SetupUltimap2(UINT32 PID, UINT32 BufferSize, WCHAR *Path, int rangeCount, P
 			Ultimap2Ranges = NULL;
 		}
 
-		Ultimap2Ranges = ExAllocatePool(NonPagedPool, rangeCount*sizeof(URANGE));
+		Ultimap2Ranges = ExAllocatePool2(POOL_FLAG_NON_PAGED, rangeCount*sizeof(URANGE),ALLOC_TAG);
 
 		for (i = 0; i < rangeCount; i++)
 			Ultimap2Ranges[i] = Ranges[i];
@@ -1456,8 +1456,8 @@ void SetupUltimap2(UINT32 PID, UINT32 BufferSize, WCHAR *Path, int rangeCount, P
 
 	Ultimap2CpuCount = KeQueryMaximumProcessorCount();
 
-	PInfo = ExAllocatePool(NonPagedPool, Ultimap2CpuCount*sizeof(PProcessorInfo));
-	Ultimap2_DataReady = ExAllocatePool(NonPagedPool, Ultimap2CpuCount*sizeof(PVOID));
+	PInfo = ExAllocatePool2(POOL_FLAG_NON_PAGED, Ultimap2CpuCount*sizeof(PProcessorInfo),ALLOC_TAG);
+	Ultimap2_DataReady = ExAllocatePool2(POOL_FLAG_NON_PAGED, Ultimap2CpuCount*sizeof(PVOID),ALLOC_TAG);
 
 	if (PInfo == NULL)
 	{
@@ -1473,7 +1473,7 @@ void SetupUltimap2(UINT32 PID, UINT32 BufferSize, WCHAR *Path, int rangeCount, P
 
 	for (i = 0; i < Ultimap2CpuCount; i++)
 	{
-		PInfo[i] = ExAllocatePool(NonPagedPool, sizeof(ProcessorInfo));
+		PInfo[i] = ExAllocatePool2(POOL_FLAG_NON_PAGED, sizeof(ProcessorInfo),ALLOC_TAG);
 		RtlZeroMemory(PInfo[i], sizeof(ProcessorInfo));
 		
 		KeInitializeEvent(&PInfo[i]->InitiateSave, SynchronizationEvent, FALSE);
@@ -1685,8 +1685,8 @@ void DisableUltimap2(void)
 			
 		}
 
-		ExFreePool(PInfo);
-		ExFreePool(Ultimap2_DataReady);
+		ExFreePool(*PInfo);
+		ExFreePool(*Ultimap2_DataReady);
 		
 		PInfo = NULL;
 
