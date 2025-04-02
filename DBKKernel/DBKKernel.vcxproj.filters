@@ -166,11 +166,14 @@
     </MASM>
   </ItemGroup>
   <ItemGroup>
-    <Inf Include="DBK32.inf">
+    <Inf Include="SGameEngine32.inf">
       <Filter>Driver Files</Filter>
     </Inf>
-    <Inf Include="DBK64.inf">
+    <Inf Include="SGameEngine64.inf">
       <Filter>Driver Files</Filter>
     </Inf>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SGameEngine64.ddf" />
   </ItemGroup>
 </Project>
