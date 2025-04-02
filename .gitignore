@@ -70,3 +70,7 @@ Cheat Engine/MonoDataCollector/MonoDataCollector/MonoDataCollector.vcxproj
 *.obj
 *.lps
 *.compiled
+.vs
+*.log
+*.idb
+*.pdb
