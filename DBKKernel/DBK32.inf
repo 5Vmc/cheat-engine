@@ -8,7 +8,8 @@ Class=System
 ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318}
 Provider=%ManufacturerName%
 CatalogFile=DBK32.cat
-DriverVer= ; TODO: set DriverVer in stampinf property pages
+DriverVer=04/03/2025,1.30.17.41
+PnpLockdown=1
 
 [DestinationDirs]
 DefaultDestDir = 12
@@ -28,9 +29,9 @@ WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with
 ;*****************************************
 
 [Manufacturer]
-%ManufacturerName%=Standard,NT$ARCH$
+%ManufacturerName%=Standard,NTx86
 
-[Standard.NT$ARCH$]
+[Standard.NTx86]
 %DBK32.DeviceDesc%=DBK32_Device, Root\DBK32 ; TODO: edit hw-id
 
 [DBK32_Device.NT]
@@ -60,7 +61,7 @@ AddReg=DBK32_Device_CoInstaller_AddReg
 CopyFiles=DBK32_Device_CoInstaller_CopyFiles
 
 [DBK32_Device_CoInstaller_AddReg]
-HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+; CoInstallers32 被废弃，删除这行
 
 [DBK32_Device_CoInstaller_CopyFiles]
 WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
@@ -68,7 +69,7 @@ WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
 [DBK32_Device.NT.Wdf]
 KmdfService =  DBK32, DBK32_wdfsect
 [DBK32_wdfsect]
-KmdfLibraryVersion = $KMDFVERSION$
+KmdfLibraryVersion = 1.0 ; 版本号
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
