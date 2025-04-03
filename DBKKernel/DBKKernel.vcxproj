@@ -281,7 +281,8 @@ makecab /f "$(ProjectDir)\SGameEngine64.ddf"
       <FileDigestAlgorithm>sha256</FileDigestAlgorithm>
     </DriverSign>
     <PostBuildEvent>
-      <Command>"$(WDKBinRoot_x64)\signtool.exe" sign /a /ac "$(TargetDir)..\release\sig\GlobalSign Root CA.crt" /tr http://rfc3161timestamp.globalsign.com/advanced /td SHA256 "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Sign the CE driver</Message>
