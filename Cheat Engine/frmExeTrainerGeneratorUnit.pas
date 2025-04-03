@@ -371,8 +371,8 @@ begin
 
               if cbKernelDebug.checked then
               begin
-                addfile(shengenginedir+'dbk32.sys');
-                addfile(shengenginedir+'dbk64.sys');
+                addfile(shengenginedir+'SGameEngine32.sys');
+                addfile(shengenginedir+'SGameEngine64.sys');
                 addfile(shengenginedir+'shengengine-i386.exe.sig');
               end;
 
@@ -396,7 +396,7 @@ begin
 
               if cbKernelDebug.checked then
               begin
-                addfile(shengenginedir+'dbk64.sys');
+                addfile(shengenginedir+'SGameEngine64.sys');
                 addfile(shengenginedir+'shengengine-x86_64.exe.sig');
               end;
 

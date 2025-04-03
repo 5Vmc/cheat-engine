@@ -484,8 +484,8 @@ begin
   if not setup then
   begin
     if deletedService then
-      messagebox(0,'The driver is successfully unloaded.','dbk32.sys unloaded',MB_ICONINFORMATION or MB_OK)
+      messagebox(0,'The driver is successfully unloaded.','SGameEngine32.sys unloaded',MB_ICONINFORMATION or MB_OK)
     else
-      messagebox(0,'The driver failed to unload or is already unloaded. If you think it''s still loaded then reboot and run the unloader again.','DBK32.sys unloader',MB_ICONERROR or MB_OK)
+      messagebox(0,'The driver failed to unload or is already unloaded. If you think it''s still loaded then reboot and run the unloader again.','SGameEngine32.sys unloader',MB_ICONERROR or MB_OK)
   end;
 end.
