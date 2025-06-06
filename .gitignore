@@ -74,3 +74,8 @@ Cheat Engine/MonoDataCollector/MonoDataCollector/MonoDataCollector.vcxproj
 *.log
 *.idb
 *.pdb
+
+
+*.vcxproj.user
+*.inf
+*.recipe
