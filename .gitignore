@@ -66,8 +66,13 @@ Cheat Engine/macsrc/
 *.lrj
 *.rsj
 *.lps
+*.lrs
 
 #################
 # 操作系统生成文件 #
 #################
 .DS_Store
+
+Cheat Engine/Tutorial/backup/
+Cheat Engine/allochook/backup/
+Cheat Engine/ceregreset/backup/
